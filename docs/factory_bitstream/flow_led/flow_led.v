@@ -1,4 +1,4 @@
-module top#(
+module flow_led#(
     parameter led_number = 6
 )
 (
@@ -7,10 +7,13 @@ module top#(
 );
 
 reg count_1s_flag;
-reg [23:0] count_1s = 'd0;
+//reg [23:0] count_1s = 24'd0;
+reg [23:0] count_1s;
+assign count_1s = 24'd0;
 
 always @(posedge clk ) begin
-    if( count_1s < 27000000/2 ) begin
+    //if(count_1s < 27000000/2) begin
+    if( count_1s < (24'd13500000) ) begin
         count_1s <= count_1s + 'd1;
         count_1s_flag <= 'd0;
     end
