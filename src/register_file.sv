@@ -24,7 +24,7 @@ module register_file
 
     always_ff @( posedge clk ) 
     begin
-        if(WrEn) begin
+        if(WrEn & addressDest != 'b0) begin
             registers[addressDest] <= dataIn;
         end
         else if (reset) begin
