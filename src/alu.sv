@@ -13,6 +13,7 @@ module alu
     );
 
     //logic [W-1:0] resultBuff;
+    logic sameMSB;
     always_comb
     begin
         case (mode)
@@ -24,7 +25,8 @@ module alu
         zeroFlag = ~|(result);
         equalFlag = (numberOne == numberTwo);
         //Need to fix this because I'm using a new structure and have to revisit how to calculate overflow without carry signals. Perhaps more parenthesis?
-        overflow = (result[W-1] ^ numberOne[W-1] ^ numberTwo[W-1]);
+        sameMSB = numberOne[W-1] ~^ numberTwo[W-1];
+        overflow = result[W-1] ^ sameMSB;
     end
     //Potentially need to get rid of this. I think for multi-cycle this is needed but in reality the ALU combinationally will be fast enough/needs to be fast enough.
     /*
