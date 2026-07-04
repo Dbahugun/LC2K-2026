@@ -25,7 +25,9 @@ main(int argc, char **argv)
     FILE *inFilePtr, *outFilePtr;
     char label[MAXLINELENGTH], opcode[MAXLINELENGTH], arg0[MAXLINELENGTH],
             arg1[MAXLINELENGTH], arg2[MAXLINELENGTH];
-
+    char labels[65536][7];
+    int labelLines[65536];
+    int labelCount = 0;
     if (argc != 3) {
         printf("error: usage: %s <assembly-code-file> <machine-code-file>\n",
             argv[0]);
@@ -71,9 +73,14 @@ main(int argc, char **argv)
         5. Open and error check the opcode
         6. printToHex for each line. Use isNumber in order to encode the jumps correctly
         7. Done, check for correctness.
-
-
     */
+
+    while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
+        //Add label to array if it exists if arg2 doesn't have a number, 
+        //Then in another array I can add the label line location so that I can replace it in the second pass
+
+    }
+
     outFilePtr = fopen(outFileString, "w");
     if (outFilePtr == NULL) {
         printf("error in opening %s\n", outFileString);
