@@ -56,6 +56,24 @@ main(int argc, char **argv)
     // Check for blank lines in the middle of the code.
     checkForBlankLinesInCode(inFilePtr);
 
+    /*I think I need to start my work here
+    Procedure:
+        Assembler first pass:
+        1. Open file and check for errors.
+        2. Use readAndParse on each line in a while loop until we hit the end of the file, using isEmptyLine
+        3. Use isNum to figure out if there is a label in the beginning or end of the line
+        4. Process the labels and use an (array or map? Unsure what is supported) in order to map them out
+        Assembler second pass:
+        1. Use rewind to rewind the pointer
+        2. readAndParse again, until we hit isEmptyLine
+        3. Fill in labels so that I don't have to do the number labelling AND jumping by opcode, just jumping(Also dunno about this since its an assembler and not a simulator)
+        4. Use strcmp on the different options in order to find the right opcode, and do necessary conversions
+        5. Open and error check the opcode
+        6. printToHex for each line. Use isNumber in order to encode the jumps correctly
+        7. Done, check for correctness.
+
+
+    */
     outFilePtr = fopen(outFileString, "w");
     if (outFilePtr == NULL) {
         printf("error in opening %s\n", outFileString);
