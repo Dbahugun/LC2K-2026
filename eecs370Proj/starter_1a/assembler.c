@@ -28,6 +28,7 @@ main(int argc, char **argv)
     char labels[65536][7];
     int labelLines[65536];
     int labelCount = 0;
+    int lineNum = 0;
     if (argc != 3) {
         printf("error: usage: %s <assembly-code-file> <machine-code-file>\n",
             argv[0]);
@@ -63,8 +64,8 @@ main(int argc, char **argv)
         Assembler first pass:
         1. Open file and check for errors.
         2. Use readAndParse on each line in a while loop until we hit the end of the file, using isEmptyLine
-        3. Use isNum to figure out if there is a label in the beginning or end of the line
-        4. Process the labels and use an (array or map? Unsure what is supported) in order to map them out
+        3. Use '/0' to figure out if there is a label or not
+        4. Process the labels and use an array for line nums and array for storing the label names in order to map them out
         Assembler second pass:
         1. Use rewind to rewind the pointer
         2. readAndParse again, until we hit isEmptyLine
@@ -75,16 +76,62 @@ main(int argc, char **argv)
         7. Done, check for correctness.
     */
 
+    //Pass 1
     while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
         //Add label to array if it exists if arg2 doesn't have a number, 
         //Then in another array I can add the label line location so that I can replace it in the second pass
-
+        if(label[0] != '\0'){
+            strncpy(labels[labelCount], label, 6);
+            labels[labelCount][6] = '\0';
+            labelLines[labelCount] = lineNum;
+            ++labelCount;
+            ++lineNum;
+        }
     }
-
+    rewind(inFilePtr);
     outFilePtr = fopen(outFileString, "w");
     if (outFilePtr == NULL) {
         printf("error in opening %s\n", outFileString);
         exit(1);
+    }
+    //Pass 2
+    int labelFound = 0;
+    lineNum = 0;
+    int opcodeNum = 0;
+    while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
+        if(!strcmp(opcode, 'ADD')){
+            opcodeNum = 0;
+        }else if(!strcmp(opcode, 'NOR')){
+            opcodeNum = 1;
+        }else if(!strcmp(opcode, 'LW')){
+            opcodeNum = 2;
+        }
+        else if(!strcmp(opcode, 'SW')){
+            opcodeNum = 3;
+        }
+        else if(!strcmp(opcode, 'BEQ')){
+            opcodeNum = 4;
+        }else if(!strcmp(opcode, 'JALR')){
+            opcodeNum = 5;
+        }else if(!strcmp(opcode, 'NOOP')){
+            opcodeNum = 6;
+        }else if(!strcmp(opcode, 'HALT')){
+            opcodeNum = 7;
+        }
+
+        //process
+        for(int i = 0; i < labelCount; ++i){
+            if(labelLines[i] == lineNum){
+                labelFound = 1;
+            }
+        }
+        if(labelFound){
+            for(int i = 0; i < labelCount; ++i){
+                if(!strcmp(label, labels[labelCount]) && (opcode == 0)){
+                    
+                }
+            }
+        }
     }
 
     /* here is an example for how to use readAndParse to read a line from
