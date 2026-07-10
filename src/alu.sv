@@ -16,11 +16,13 @@ module alu
     logic sameMSB;
     always_comb
     begin
-        case (mode)
+        case(mode)
             1'b0:
                 result = numberOne + numberTwo;
             1'b1:
                 result = ~(numberOne | numberTwo);
+            //For some reason verilator wants this even though I'm never goign to use this.
+            default: result = numberOne + numberTwo;
         endcase
         zeroFlag = ~|(result);
         equalFlag = (numberOne == numberTwo);

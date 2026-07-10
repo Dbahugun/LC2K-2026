@@ -26,7 +26,7 @@ main(int argc, char **argv)
     char label[MAXLINELENGTH], opcode[MAXLINELENGTH], arg0[MAXLINELENGTH],
             arg1[MAXLINELENGTH], arg2[MAXLINELENGTH];
     char labels[65536][7];
-    int labelLines[65536];
+    int labelVals[65536];
     int labelCount = 0;
     int lineNum = 0;
     if (argc != 3) {
@@ -83,7 +83,7 @@ main(int argc, char **argv)
         if(label[0] != '\0'){
             strncpy(labels[labelCount], label, 6);
             labels[labelCount][6] = '\0';
-            labelLines[labelCount] = lineNum;
+            labelVals[labelCount] = lineNum;
             ++labelCount;
             ++lineNum;
         }
@@ -94,11 +94,14 @@ main(int argc, char **argv)
         printf("error in opening %s\n", outFileString);
         exit(1);
     }
+
     //Pass 2
-    int labelFound = 0;
     lineNum = 0;
     int opcodeNum = 0;
+    int errorFlag = 0;
     while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
+        int labelFound = 0;
+        int offset = 0;
         if(!strcmp(opcode, 'ADD')){
             opcodeNum = 0;
         }else if(!strcmp(opcode, 'NOR')){
@@ -117,21 +120,40 @@ main(int argc, char **argv)
             opcodeNum = 6;
         }else if(!strcmp(opcode, 'HALT')){
             opcodeNum = 7;
+        }else{
+            //.fill accounting
+            opcodeNum = 8;
         }
-
+        if(arg0 < 0 || arg0 > 8 || arg1 < 0 || arg1 > 8){
+            printf("Error: Register out of bounds");
+            errorFlag = 1;
+        }
         //process
         for(int i = 0; i < labelCount; ++i){
-            if(labelLines[i] == lineNum){
+            if(labelVals[i] == lineNum){
                 labelFound = 1;
             }
         }
         if(labelFound){
             for(int i = 0; i < labelCount; ++i){
-                if(!strcmp(label, labels[labelCount]) && (opcode == 0)){
-                    
+                if(!strcmp(label, labels[labelCount]) && ((opcode == 2) || (opcode == 3))){
+                    offset = labelVals[labelCount];
+                }else if(!strcmp(label, labels[labelCount]) && opcode == 4){
+                    offset = labelVals[labelCount] - 1;
+                }else if(!strcmp(label, labels[labelCount]) && opcode == 8){
+                    offset = labelVals[labelCount];
                 }
             }
         }
+        if((offset > 32767 || offset < -32768) && opcode != 8){
+            printf("Error: Offset field out of range");
+            errorFlag = 1;
+        }else if(offset <= -2147483648 || offset >= 4294967295){
+            printf("Error: Offset field out of range");
+            errorFlag = 1;
+        }
+        //Left here 7/09/26, need to output now that labels have been parsed, case it by opcode
+        lineNum++;
     }
 
     /* here is an example for how to use readAndParse to read a line from
