@@ -1,0 +1,49 @@
+This is the txt file for the control pROM as I see fit, I'll iterate as I go since I know the datapath gets more complicated in the lecture as we go.
+0b000: 0111100x
+0b001: 0111110x
+0b010: 00010010
+0b011: 0xx00011
+This is where he introduces the and gate and the mux starts to come into play, so I'll notate that below and I'll leave the first input(PC Mux) untouched for now.
+0b100(NE): 0xx01x0x (0 & 1 & ~0 & ~0)
+0b100(E): 1xx01x0x (1 & 1 & ~0 & ~0)
+Now there are two and gates and 2 MUXes become 2 bits, so once I finish writing everything out I'll change the first 5 instructions to reflect that. I'll also have to consult that MUX table to be sure what changes.
+0b101(NE): (01)0(01)1xx0x
+0b101(E): (00)0(01)1xx0x
+Now here, he never wrote anything for no-op and halt so I'll have to improvise. Should leave a lot disabled though.
+0b110: (00)x(00)0xx0x
+0b111: (00)x(00)0xx0x
+
+Here is my final calculation before the mi file below which should be all set, just have to change x's and get rid of unnecessary MUX inputs since they come from opcode signals and other places.
+0b000: 001011100x
+0b001: 001011110x
+0b010: 0000010010
+0b011: 00xxx00011
+0b100: 00xxx01x0x
+0b100: 10xxx01x0x
+0b101: 010011xx0x
+0b101: 0b111000011xx0x
+0b110: 00x000xx0x
+0b111: 00x000xx0x
+
+And then here is the final .mi initialization, where I remove the INITIAL mux input because thats gated, and keep the secondary one, and turn don't cares into 0. I also got rid of the branch conditions so theres 8 total opcodes.
+Binary:
+0b000: 10111000
+0b001: 10111100
+0b010: 00010010
+0b011: 00000011
+0b100: 00001000
+0b101: 00110000
+0b110: 00000000
+0b111: 00000000
+
+Hex:
+00: B8
+01: BC
+02: 12
+03: 03
+04: 08
+05: 08
+06: 30
+07: 30
+08: 00
+09: 00

@@ -1,0 +1,11 @@
+#File_format=Hex
+#Address_depth=8
+#Data_width=8
+B8
+BC
+12
+03
+08
+08
+30
+30

@@ -1,6 +1,5 @@
 //IP Core Generator snippet goes below. Allegedly I call this and never worry about it again, but there are errors?
 
-
 //Copyright (C)2014-2026 Gowin Semiconductor Corporation.
 //All rights reserved.
 //File Title: IP file
