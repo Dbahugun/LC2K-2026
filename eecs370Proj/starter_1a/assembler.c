@@ -85,8 +85,13 @@ main(int argc, char **argv)
             labels[labelCount][6] = '\0';
             labelVals[labelCount] = lineNum;
             ++labelCount;
-            ++lineNum;
         }
+        memset(label, '\0', sizeof(label));
+        memset(opcode, '\0', sizeof(opcode));
+        memset(arg0, '\0', sizeof(arg0));
+        memset(arg1, '\0', sizeof(arg1));
+        memset(arg2, '\0', sizeof(arg2));
+        ++lineNum;
     }
     rewind(inFilePtr);
     outFilePtr = fopen(outFileString, "w");
@@ -103,110 +108,121 @@ main(int argc, char **argv)
         result = 0;
         int labelFound = 0;
         int offset = 0;
-        if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8){
-            printf("Error: Register out of bounds");
-            errorFlag = 1;
-        }
-        if(!strcmp(opcode, "ADD")){
+        if(!strcmp(opcode, "add")){
             //process
-            if(atoi(arg2) < 0 || atoi(arg2) > 8){
+            if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8 || atoi(arg2) < 0 || atoi(arg2) > 8){
                 printf("Error: Register out of bounds");
                 errorFlag = 1;
             }
             result = (0b000 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
             printHexToFile(outFilePtr, result);
             //Left here 7/09/26, need to output now that labels have been parsed, case it by opcode
-        }else if(!strcmp(opcode, "NOR")){
+        }else if(!strcmp(opcode, "nor")){
+            if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8 || atoi(arg2) < 0 || atoi(arg2) > 8){
+                printf("Error: Register out of bounds");
+                errorFlag = 1;
+            }
             result = (0b001 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
             printHexToFile(outFilePtr, result);
-        }else if(!strcmp(opcode, "LW")){
-            for(int i = 0; i < labelCount; ++i){
-                if(labelVals[i] == lineNum){
-                    labelFound = 1;
-                }
+        }else if(!strcmp(opcode, "lw")){
+            if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8){
+                printf("Error: Register out of bounds");
+                errorFlag = 1;
+            }
+            if(!isNumber(arg2)){
+                labelFound = 1;
             }
             if(labelFound){
                 for(int i = 0; i < labelCount; ++i){
-                    if(!strcmp(label, labels[labelCount])){
-                        offset = labelVals[labelCount];
+                    if(!strcmp(arg2, labels[i])){
+                        offset = labelVals[i];
+                        break;
                     }
                 }
                 if((offset > 32767 || offset < -32768)){
                     printf("Error: Offset field out of range");
                     errorFlag = 1;
                 }
-                result = (0b010 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | offset;
+                result = (0b010 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | (offset&0xFFFF);
                 printHexToFile(outFilePtr, result);
             }else{
-                result = (0b010 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+                result = (0b010 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | (atoi(arg2)&0xFFFF);
                 printHexToFile(outFilePtr, result);
             }
         }
-        else if(!strcmp(opcode, "SW")){
-            for(int i = 0; i < labelCount; ++i){
-                if(labelVals[i] == lineNum){
-                    labelFound = 1;
-                }
+        else if(!strcmp(opcode, "sw")){
+            if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8){
+                printf("Error: Register out of bounds");
+                errorFlag = 1;
+            }
+            if(!isNumber(arg2)){
+                labelFound = 1;
             }
             if(labelFound){
                 for(int i = 0; i < labelCount; ++i){
-                    if(!strcmp(label, labels[labelCount])){
-                        offset = labelVals[labelCount];
+                    if(!strcmp(arg2, labels[i])){
+                        offset = labelVals[i];
+                        break;
                     }
                 }
                 if((offset > 32767 || offset < -32768)){
                     printf("Error: Offset field out of range");
                     errorFlag = 1;
                 }
-                result = (0b011 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | offset;
+                result = (0b011 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | (offset&0xFFFF);
                 printHexToFile(outFilePtr, result);
             }else{
-                result = (0b011 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+                result = (0b011 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | (atoi(arg2)&0xFFFF);
                 printHexToFile(outFilePtr, result);
             }
         }
-        else if(!strcmp(opcode, "BEQ")){
-            for(int i = 0; i < labelCount; ++i){
-                if(labelVals[i] == lineNum){
-                    labelFound = 1;
-                }
+        else if(!strcmp(opcode, "beq")){
+            if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8){
+                printf("Error: Register out of bounds");
+                errorFlag = 1;
+            }
+            if(!isNumber(arg2)){
+                labelFound = 1;
             }
             if(labelFound){
                 for(int i = 0; i < labelCount; ++i){
-                    if(!strcmp(label, labels[labelCount])){
-                        offset = labelVals[labelCount]-1;
+                    if(!strcmp(arg2, labels[i])){
+                        offset = labelVals[i] - (lineNum+1);
+                        break;
                     }
                 }
                 if((offset > 32767 || offset < -32768)){
                     printf("Error: Offset field out of range");
                     errorFlag = 1;
                 }
-                result = (0b100 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | offset;
+                result = (0b100 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | (offset&0xFFFF);
                 printHexToFile(outFilePtr, result);
             }else{
-                result = (0b100 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+                result = (0b100 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | (atoi(arg2)&0xFFFF);
                 printHexToFile(outFilePtr, result);
             }
-        }else if(!strcmp(opcode, "JALR")){
+        }else if(!strcmp(opcode, "jalr")){
+            if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8){
+                printf("Error: Register out of bounds");
+                errorFlag = 1;
+            }
             result = (0b101 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16);
             printHexToFile(outFilePtr, result);
-        }else if(!strcmp(opcode, "NOOP")){
+        }else if(!strcmp(opcode, "halt")){
             result = (0b110 << 22);
             printHexToFile(outFilePtr, result);
-        }else if(!strcmp(opcode, "HALT")){
+        }else if(!strcmp(opcode, "noop")){
             result = (0b111 << 22);
             printHexToFile(outFilePtr, result);
         }else{
             //.fill accounting
-            for(int i = 0; i < labelCount; ++i){
-                if(labelVals[i] == lineNum){
-                    labelFound = 1;
-                }
+            if(!(isNumber(arg0))){
+                labelFound = 1;
             }
             if(labelFound){
                 for(int i = 0; i < labelCount; ++i){
-                    if(!strcmp(label, labels[labelCount])){
-                        offset = labelVals[labelCount];
+                    if(!strcmp(arg0, labels[i])){
+                        offset = labelVals[i];
                     }
                 }
                 if(offset <= -2147483648 || offset >= 4294967295){
@@ -218,6 +234,11 @@ main(int argc, char **argv)
                 printHexToFile(outFilePtr, atoi(arg0));
             }
         }
+        memset(label, '\0', sizeof(label));
+        memset(opcode, '\0', sizeof(opcode));
+        memset(arg0, '\0', sizeof(arg0));
+        memset(arg1, '\0', sizeof(arg1));
+        memset(arg2, '\0', sizeof(arg2));
         lineNum++;
     }
 
