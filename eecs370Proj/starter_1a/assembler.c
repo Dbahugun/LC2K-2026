@@ -97,91 +97,158 @@ main(int argc, char **argv)
 
     //Pass 2
     lineNum = 0;
-    int opcodeNum = 0;
     int errorFlag = 0;
+    int result;
     while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
+        result = 0;
         int labelFound = 0;
         int offset = 0;
-        if(!strcmp(opcode, 'ADD')){
-            opcodeNum = 0;
-        }else if(!strcmp(opcode, 'NOR')){
-            opcodeNum = 1;
-        }else if(!strcmp(opcode, 'LW')){
-            opcodeNum = 2;
-        }
-        else if(!strcmp(opcode, 'SW')){
-            opcodeNum = 3;
-        }
-        else if(!strcmp(opcode, 'BEQ')){
-            opcodeNum = 4;
-        }else if(!strcmp(opcode, 'JALR')){
-            opcodeNum = 5;
-        }else if(!strcmp(opcode, 'NOOP')){
-            opcodeNum = 6;
-        }else if(!strcmp(opcode, 'HALT')){
-            opcodeNum = 7;
-        }else{
-            //.fill accounting
-            opcodeNum = 8;
-        }
-        if(arg0 < 0 || arg0 > 8 || arg1 < 0 || arg1 > 8){
+        if(atoi(arg0) < 0 || atoi(arg0) > 8 || atoi(arg1) < 0 || atoi(arg1) > 8){
             printf("Error: Register out of bounds");
             errorFlag = 1;
         }
-        //process
-        for(int i = 0; i < labelCount; ++i){
-            if(labelVals[i] == lineNum){
-                labelFound = 1;
+        if(!strcmp(opcode, "ADD")){
+            //process
+            if(atoi(arg2) < 0 || atoi(arg2) > 8){
+                printf("Error: Register out of bounds");
+                errorFlag = 1;
             }
-        }
-        if(labelFound){
+            result = (0b000 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+            printHexToFile(outFilePtr, result);
+            //Left here 7/09/26, need to output now that labels have been parsed, case it by opcode
+        }else if(!strcmp(opcode, "NOR")){
+            result = (0b001 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+            printHexToFile(outFilePtr, result);
+        }else if(!strcmp(opcode, "LW")){
             for(int i = 0; i < labelCount; ++i){
-                if(!strcmp(label, labels[labelCount]) && ((opcode == 2) || (opcode == 3))){
-                    offset = labelVals[labelCount];
-                }else if(!strcmp(label, labels[labelCount]) && opcode == 4){
-                    offset = labelVals[labelCount] - 1;
-                }else if(!strcmp(label, labels[labelCount]) && opcode == 8){
-                    offset = labelVals[labelCount];
+                if(labelVals[i] == lineNum){
+                    labelFound = 1;
                 }
             }
+            if(labelFound){
+                for(int i = 0; i < labelCount; ++i){
+                    if(!strcmp(label, labels[labelCount])){
+                        offset = labelVals[labelCount];
+                    }
+                }
+                if((offset > 32767 || offset < -32768)){
+                    printf("Error: Offset field out of range");
+                    errorFlag = 1;
+                }
+                result = (0b010 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | offset;
+                printHexToFile(outFilePtr, result);
+            }else{
+                result = (0b010 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+                printHexToFile(outFilePtr, result);
+            }
         }
-        if((offset > 32767 || offset < -32768) && opcode != 8){
-            printf("Error: Offset field out of range");
-            errorFlag = 1;
-        }else if(offset <= -2147483648 || offset >= 4294967295){
-            printf("Error: Offset field out of range");
-            errorFlag = 1;
+        else if(!strcmp(opcode, "SW")){
+            for(int i = 0; i < labelCount; ++i){
+                if(labelVals[i] == lineNum){
+                    labelFound = 1;
+                }
+            }
+            if(labelFound){
+                for(int i = 0; i < labelCount; ++i){
+                    if(!strcmp(label, labels[labelCount])){
+                        offset = labelVals[labelCount];
+                    }
+                }
+                if((offset > 32767 || offset < -32768)){
+                    printf("Error: Offset field out of range");
+                    errorFlag = 1;
+                }
+                result = (0b011 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | offset;
+                printHexToFile(outFilePtr, result);
+            }else{
+                result = (0b011 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+                printHexToFile(outFilePtr, result);
+            }
         }
-        //Left here 7/09/26, need to output now that labels have been parsed, case it by opcode
+        else if(!strcmp(opcode, "BEQ")){
+            for(int i = 0; i < labelCount; ++i){
+                if(labelVals[i] == lineNum){
+                    labelFound = 1;
+                }
+            }
+            if(labelFound){
+                for(int i = 0; i < labelCount; ++i){
+                    if(!strcmp(label, labels[labelCount])){
+                        offset = labelVals[labelCount]-1;
+                    }
+                }
+                if((offset > 32767 || offset < -32768)){
+                    printf("Error: Offset field out of range");
+                    errorFlag = 1;
+                }
+                result = (0b100 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | offset;
+                printHexToFile(outFilePtr, result);
+            }else{
+                result = (0b100 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16) | atoi(arg2);
+                printHexToFile(outFilePtr, result);
+            }
+        }else if(!strcmp(opcode, "JALR")){
+            result = (0b101 << 22) | (atoi(arg0) << 19) | (atoi(arg1) << 16);
+            printHexToFile(outFilePtr, result);
+        }else if(!strcmp(opcode, "NOOP")){
+            result = (0b110 << 22);
+            printHexToFile(outFilePtr, result);
+        }else if(!strcmp(opcode, "HALT")){
+            result = (0b111 << 22);
+            printHexToFile(outFilePtr, result);
+        }else{
+            //.fill accounting
+            for(int i = 0; i < labelCount; ++i){
+                if(labelVals[i] == lineNum){
+                    labelFound = 1;
+                }
+            }
+            if(labelFound){
+                for(int i = 0; i < labelCount; ++i){
+                    if(!strcmp(label, labels[labelCount])){
+                        offset = labelVals[labelCount];
+                    }
+                }
+                if(offset <= -2147483648 || offset >= 4294967295){
+                    printf("Error: Offset field out of range");
+                    errorFlag = 1;
+                }
+                printHexToFile(outFilePtr, offset);
+            }else{
+                printHexToFile(outFilePtr, atoi(arg0));
+            }
+        }
         lineNum++;
     }
 
     /* here is an example for how to use readAndParse to read a line from
         inFilePtr */
-    if (! readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2) ) {
+    //if (! readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2) ) {
         /* reached end of file */
-    }
+    //}
 
     /* this is how to rewind the file ptr so that you start reading from the
         beginning of the file */
-    rewind(inFilePtr);
+    //rewind(inFilePtr);
 
     /* after doing a readAndParse, you may want to do the following to test the
         opcode */
-    if (!strcmp(opcode, "add")) {
+    //if (!strcmp(opcode, "add")) {
         /* do whatever you need to do for opcode "add" */
-    }
+    //}
 
     /* here is an example of using isNumber. "5" is a number, so this will
        return true */
-    if(isNumber("5")) {
-        printf("It's a number\n");
-    }
+    //if(isNumber("5")) {
+      //  printf("It's a number\n");
+    //}
 
     /* here is an example of using printHexToFile. This will print a
        machine code word / number in the proper hex format to the output file */
-    printHexToFile(outFilePtr, 123);
-
+    //printHexToFile(outFilePtr, 123);
+    if(errorFlag){
+        return(1);
+    }
     return(0);
 }
 
