@@ -83,3 +83,4 @@
 
 //--------Copy end-------------------
 
+//Start module here, figure out how to do regular SV arrays for testbench.
