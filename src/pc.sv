@@ -1,18 +1,18 @@
 //Should be really simple just takes the input and updates the PC after clock
 module pc
-    #(parameter W = 32)
+    #(parameter S = 8)
     (
         input clk,
         input logic reset,
         input logic branch,
         input logic jump,
-        input logic [W-1:0] beq,
-        input logic [W-1:0] jalr,
-        input logic [W-1:0] plusOne,
-        output logic [W-1:0] newPC
+        input logic [S-1:0] beq,
+        input logic [S-1:0] jalr,
+        input logic [S-1:0] plusOne,
+        output logic [S-1:0] newPC
     );
     
-    logic [W-1:0] PC;
+    logic [S-1:0] PC;
     always_comb begin
         if(reset) begin
             PC = 0;

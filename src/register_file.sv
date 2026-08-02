@@ -2,7 +2,7 @@ module register_file
     #(parameter W = 32)
     (
         input clk,
-        input reset,
+        input logic reset,
         input logic [2:0] addressA,
         input logic [2:0] addressB,
         input logic [2:0] addressDest,
