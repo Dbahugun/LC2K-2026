@@ -15,6 +15,13 @@ module register_file
     //Start writing implementation here for the actual register file. Should be an array of FFs, but how do I initialize them? Do I even need to?
 
     logic [7:0][W-1:0] registers;
+ 
+    //Want the registers to be 0 by default even without a reset
+    initial begin
+        for(int i = 0; i < 8; ++i) begin
+            registers[i] = 'b0;
+        end
+    end
 
     always_comb 
     begin
@@ -28,8 +35,8 @@ module register_file
             registers[addressDest] <= dataIn;
         end
         else if (reset) begin
-            for(int i = 0; i < 8; ++i) begin
-                registers[i] <= 'b0;
+            for(int j = 0; j < 8; ++j) begin
+                registers[j] <= 'b0;
             end
         end
     end
