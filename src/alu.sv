@@ -1,4 +1,4 @@
-//File name: alu.sv
+//ALU module
 module alu
     #(parameter W = 32)             // Default bit width
     (

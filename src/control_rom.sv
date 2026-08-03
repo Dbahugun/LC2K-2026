@@ -8,6 +8,7 @@
 //Part Number: GW2AR-LV18QN88PC8/I7
 //Device: GW2AR-18
 //Created Time: Sat Jul 11 17:24:21 2026
+`timescale 1ns/1ps
 
 module control_rom (dout, clk, oce, ce, reset, ad);
 

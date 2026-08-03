@@ -2,7 +2,7 @@
 module pc
     #(parameter S = 8)
     (
-        input clk,
+        input logic clk,
         input logic halt,
         input logic reset,
         input logic branch,
