@@ -206,11 +206,12 @@ module top_sim
         end
 
         //Register file write value mux
-        if(regDataInSel[1] & regDataInSel[0]) begin
-            regFileWriteMux = aluResult;
-        end
-        else if(regDataInSel[1]) begin
+        //Note: I realized there was an error in my control ROM, this new MUX logic fixes said error
+        if(opcode == 3'b101) begin
             regFileWriteMux = {{24'b0}, plusOne};
+        end
+        else if(regDataInSel[0]) begin
+            regFileWriteMux = aluResult;
         end
         else begin
             regFileWriteMux = dataMemOut;

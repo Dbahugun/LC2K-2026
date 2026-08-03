@@ -128,13 +128,11 @@ VL_INLINE_OPT void Vfibonacci_tb___024root___nba_sequent__TOP__0(Vfibonacci_tb__
     if (((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regFileWrEn) 
          & (0U != (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regFileReadMux)))) {
         VL_ASSIGNSEL_WI(256,32,(0xffU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regFileReadMux), 5U)), vlSelfRef.fibonacci_tb__DOT__dut__DOT__reg_file__DOT__registers, 
-                        (((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0) 
-                          & (vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
-                             [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode] 
-                             >> 5U)) ? vlSelfRef.fibonacci_tb__DOT__dut__DOT__aluResult
-                          : ((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0)
-                              ? (0xffU & ((IData)(1U) 
-                                          + (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__PC)))
+                        ((5U == (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode))
+                          ? (0xffU & ((IData)(1U) + (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__PC)))
+                          : ((0x20U & vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
+                              [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode])
+                              ? vlSelfRef.fibonacci_tb__DOT__dut__DOT__aluResult
                               : vlSelfRef.fibonacci_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem
                              [(0xffU & vlSelfRef.fibonacci_tb__DOT__dut__DOT__aluResult)])));
     } else if ((1U & (~ (IData)(vlSelfRef.fibonacci_tb__DOT__rst)))) {
@@ -224,10 +222,6 @@ VL_INLINE_OPT void Vfibonacci_tb___024root___nba_sequent__TOP__0(Vfibonacci_tb__
            | (vlSelfRef.fibonacci_tb__DOT__dut__DOT__reg_file__DOT__registers[
               (7U & (VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regB_loc), 5U) 
                      >> 5U))] >> (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regB_loc), 5U))));
-    vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0 
-        = (1U & (vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
-                 [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode] 
-                 >> 6U));
     vlSelfRef.fibonacci_tb__DOT__dut__DOT__regFileWrEn 
         = (1U & (vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
                  [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode] 

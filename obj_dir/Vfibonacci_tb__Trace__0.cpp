@@ -81,13 +81,12 @@ void Vfibonacci_tb___024root__trace_chg_0_sub_0(Vfibonacci_tb___024root* vlSelf,
                                 [(0xffU & vlSelfRef.fibonacci_tb__DOT__dut__DOT__aluResult)]),32);
         bufp->chgIData(oldp+24,(vlSelfRef.fibonacci_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem
                                 [0U]),32);
-        bufp->chgIData(oldp+25,((((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0) 
-                                  & (vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
-                                     [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode] 
-                                     >> 5U)) ? vlSelfRef.fibonacci_tb__DOT__dut__DOT__aluResult
-                                  : ((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0)
-                                      ? (0xffU & ((IData)(1U) 
-                                                  + (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__PC)))
+        bufp->chgIData(oldp+25,(((5U == (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode))
+                                  ? (0xffU & ((IData)(1U) 
+                                              + (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__PC)))
+                                  : ((0x20U & vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
+                                      [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode])
+                                      ? vlSelfRef.fibonacci_tb__DOT__dut__DOT__aluResult
                                       : vlSelfRef.fibonacci_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem
                                      [(0xffU & vlSelfRef.fibonacci_tb__DOT__dut__DOT__aluResult)]))),32);
         bufp->chgBit(oldp+26,((1U & ((vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
@@ -125,9 +124,8 @@ void Vfibonacci_tb___024root__trace_chg_0_sub_0(Vfibonacci_tb___024root* vlSelf,
     }
     bufp->chgBit(oldp+54,(vlSelfRef.fibonacci_tb__DOT__clk));
     bufp->chgBit(oldp+55,(vlSelfRef.fibonacci_tb__DOT__rst));
-    bufp->chgIData(oldp+56,(vlSelfRef.fibonacci_tb__DOT__run_until_halt__Vstatic__cycle_count),32);
-    bufp->chgBit(oldp+57,((1U & (~ (IData)(vlSelfRef.fibonacci_tb__DOT__rst)))));
-    bufp->chgCData(oldp+58,(((IData)(vlSelfRef.fibonacci_tb__DOT__rst)
+    bufp->chgBit(oldp+56,((1U & (~ (IData)(vlSelfRef.fibonacci_tb__DOT__rst)))));
+    bufp->chgCData(oldp+57,(((IData)(vlSelfRef.fibonacci_tb__DOT__rst)
                               ? (0xffU & (((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_1) 
                                            & ((~ (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_2)) 
                                               & (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__equal)))

@@ -15,7 +15,7 @@ top_sim dut (
 initial clk = 0;
 always #25 clk <= ~clk;   // 50ns period
 
-localparam int MAX_CYCLES = 100000; // generous per-run timeout
+localparam int MAX_CYCLES = 500; // short enough to stay readable in GTKWave
 
 task print_registers;
     $display("r0 = %0d (0x%08X)", dut.reg_file.registers[0], dut.reg_file.registers[0]);
@@ -31,12 +31,12 @@ endtask
 
 task do_reset;
     rst = 0;                 // resetButton=0 -> reset=1, held in reset
-    repeat(4) @(posedge clk);
+    repeat(1) @(posedge clk);
     rst = 1;                 // resetButton=1 -> reset=0, released
 endtask
 
 task run_until_halt(input int run_number);
-    int cycle_count;
+    automatic int cycle_count;
     cycle_count = 0;
     while (!(rst && dut.pcDisable) && cycle_count < MAX_CYCLES) begin
         @(posedge clk);

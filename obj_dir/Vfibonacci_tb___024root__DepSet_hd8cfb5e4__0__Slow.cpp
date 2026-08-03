@@ -189,10 +189,6 @@ VL_ATTR_COLD void Vfibonacci_tb___024root___stl_sequent__TOP__0(Vfibonacci_tb___
            | (vlSelfRef.fibonacci_tb__DOT__dut__DOT__reg_file__DOT__registers[
               (7U & (VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regB_loc), 5U) 
                      >> 5U))] >> (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regB_loc), 5U))));
-    vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0 
-        = (1U & (vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
-                 [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode] 
-                 >> 6U));
     vlSelfRef.fibonacci_tb__DOT__dut__DOT__regFileWrEn 
         = (1U & (vlSelfRef.fibonacci_tb__DOT__dut__DOT__control_prom__DOT__control_rom
                  [vlSelfRef.fibonacci_tb__DOT__dut__DOT__opcode] 
@@ -329,7 +325,6 @@ VL_ATTR_COLD void Vfibonacci_tb___024root___ctor_var_reset(Vfibonacci_tb___024ro
     // Body
     vlSelf->fibonacci_tb__DOT__clk = VL_RAND_RESET_I(1);
     vlSelf->fibonacci_tb__DOT__rst = VL_RAND_RESET_I(1);
-    vlSelf->fibonacci_tb__DOT__run_until_halt__Vstatic__cycle_count = 0;
     vlSelf->fibonacci_tb__DOT__dut__DOT__PC = VL_RAND_RESET_I(8);
     vlSelf->fibonacci_tb__DOT__dut__DOT__regB_loc = VL_RAND_RESET_I(3);
     vlSelf->fibonacci_tb__DOT__dut__DOT__opcode = VL_RAND_RESET_I(3);
@@ -344,7 +339,6 @@ VL_ATTR_COLD void Vfibonacci_tb___024root___ctor_var_reset(Vfibonacci_tb___024ro
     vlSelf->fibonacci_tb__DOT__dut__DOT__overflow = VL_RAND_RESET_I(1);
     vlSelf->fibonacci_tb__DOT__dut__DOT__regFileReadMux = VL_RAND_RESET_I(3);
     vlSelf->fibonacci_tb__DOT__dut__DOT__aluMux = VL_RAND_RESET_I(32);
-    vlSelf->fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0 = VL_RAND_RESET_I(1);
     vlSelf->fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_1 = VL_RAND_RESET_I(1);
     vlSelf->fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_2 = VL_RAND_RESET_I(1);
     vlSelf->fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_3 = VL_RAND_RESET_I(1);

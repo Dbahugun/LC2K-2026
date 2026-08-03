@@ -26,7 +26,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vfibonacci_tb___024root final : public Verila
     CData/*0:0*/ fibonacci_tb__DOT__dut__DOT__equal;
     CData/*0:0*/ fibonacci_tb__DOT__dut__DOT__overflow;
     CData/*2:0*/ fibonacci_tb__DOT__dut__DOT__regFileReadMux;
-    CData/*0:0*/ fibonacci_tb__DOT__dut__DOT____VdfgExtracted_h91fc6582__0;
     CData/*0:0*/ fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_1;
     CData/*0:0*/ fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_2;
     CData/*0:0*/ fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_3;
@@ -38,7 +37,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vfibonacci_tb___024root final : public Verila
     CData/*0:0*/ __VstlFirstIteration;
     CData/*0:0*/ __Vtrigprevexpr___TOP__fibonacci_tb__DOT__clk__0;
     CData/*0:0*/ __VactContinue;
-    IData/*31:0*/ fibonacci_tb__DOT__run_until_halt__Vstatic__cycle_count;
     IData/*31:0*/ fibonacci_tb__DOT__dut__DOT__regA_val;
     IData/*31:0*/ fibonacci_tb__DOT__dut__DOT__regB_val;
     IData/*31:0*/ fibonacci_tb__DOT__dut__DOT__regDest_val;
