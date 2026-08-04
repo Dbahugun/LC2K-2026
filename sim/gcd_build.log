@@ -11,4 +11,4 @@ rm Vgcd_tb__ALL.verilator_deplist.tmp
 make: Leaving directory '/home/dbahugun/LC2K-2026/obj_dir'
 - V e r i l a t i o n   R e p o r t: Verilator 5.029 devel rev v5.028-203-gece0613e0
 - Verilator: Built from 0.135 MB sources in 9 modules, into 0.122 MB in 12 C++ files needing 0.000 MB
-- Verilator: Walltime 5.104 s (elab=0.001, cvt=0.006, bld=5.083); cpu 0.020 s on 1 threads; alloced 2.312 MB
+- Verilator: Walltime 5.114 s (elab=0.001, cvt=0.007, bld=5.091); cpu 0.021 s on 1 threads; alloced 2.309 MB
