@@ -1,5 +1,5 @@
 /* verilator lint_off UNUSED */
-//Sim versions of the files
+//Sim versions of the files, same control-rom used for 
 module control_rom_sim (dout, clk, oce, ce, reset, ad);
 
 output [7:0] dout;

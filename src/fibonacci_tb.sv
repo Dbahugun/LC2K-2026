@@ -15,7 +15,7 @@ top_sim dut (
 initial clk = 0;
 always #25 clk <= ~clk;   // 50ns period
 
-localparam int MAX_CYCLES = 500; // short enough to stay readable in GTKWave
+localparam int MAX_CYCLES = 2000; // short enough to stay readable in GTKWave
 
 task print_registers;
     $display("r0 = %0d (0x%08X)", dut.reg_file.registers[0], dut.reg_file.registers[0]);

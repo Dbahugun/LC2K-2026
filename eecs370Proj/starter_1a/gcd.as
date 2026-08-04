@@ -2,6 +2,7 @@
 	lw	0	2	numb	r2 = b = 192
 	lw	0	4	nmask	r4 = 0x7FFFFFFF
 	lw	0	5	one	r5 = 1
+	noop			executed once here, dynamically proves PC advances past a noop
 loop	beq	1	2	done	gcd found when a == b
 	lw	0	6	subadr	r6 = address of sub (reloaded every call)
 	jalr	6	7	call sub: r3 = a - b, return addr in r7
@@ -13,8 +14,8 @@ loop	beq	1	2	done	gcd found when a == b
 	beq	0	0	loop
 apos	add	3	0	1	a = d = a - b
 	beq	0	0	loop
-done	halt
-	noop			never reached; assembler encoding coverage only
+done	add	1	0	3	r3 = final GCD result
+	halt
 sub	nor	2	2	3	r3 = ~b
 	add	3	5	3	r3 = -b
 	add	1	3	3	r3 = a - b

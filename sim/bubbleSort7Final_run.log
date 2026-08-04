@@ -1,0 +1,25 @@
+RUN 1: HALT detected at time 23875000 (cycle 477)
+r0 = 0 (0x00000000)
+r1 = 4294967288 (0xfffffff8)
+r2 = 4294967291 (0xfffffffb)
+r3 = 3 (0x00000003)
+r4 = 12 (0x0000000c)
+r5 = 45 (0x0000002d)
+r6 = 76 (0x0000004c)
+r7 = 89 (0x00000059)
+PC = 30
+RUN 2: HALT detected at time 48025000 (cycle 477)
+r0 = 0 (0x00000000)
+r1 = 4294967288 (0xfffffff8)
+r2 = 4294967291 (0xfffffffb)
+r3 = 3 (0x00000003)
+r4 = 12 (0x0000000c)
+r5 = 45 (0x0000002d)
+r6 = 76 (0x0000004c)
+r7 = 89 (0x00000059)
+PC = 30
+Both runs complete.
+- src/bubbleSort7Final_tb.sv:69: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.029 devel
+- Verilator: $finish at 48us; walltime 0.004 s; speed 12.574 ms/s
+- Verilator: cpu 0.004 s on 1 threads; alloced 185 MB

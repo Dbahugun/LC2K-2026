@@ -1,0 +1,25 @@
+RUN 1: HALT detected at time 31475000 (cycle 629)
+r0 = 0 (0x00000000)
+r1 = 39 (0x00000027)
+r2 = 4294967288 (0xfffffff8)
+r3 = 89 (0x00000059)
+r4 = 0 (0x00000000)
+r5 = 1 (0x00000001)
+r6 = 39 (0x00000027)
+r7 = 2147483647 (0x7fffffff)
+PC = 25
+RUN 2: HALT detected at time 63225000 (cycle 629)
+r0 = 0 (0x00000000)
+r1 = 39 (0x00000027)
+r2 = 4294967288 (0xfffffff8)
+r3 = 89 (0x00000059)
+r4 = 0 (0x00000000)
+r5 = 1 (0x00000001)
+r6 = 39 (0x00000027)
+r7 = 2147483647 (0x7fffffff)
+PC = 25
+Both runs complete.
+- src/bubbleSort8Fast_tb.sv:69: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.029 devel
+- Verilator: $finish at 63us; walltime 0.004 s; speed 15.530 ms/s
+- Verilator: cpu 0.004 s on 1 threads; alloced 185 MB

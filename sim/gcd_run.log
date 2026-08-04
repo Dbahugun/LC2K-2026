@@ -1,0 +1,25 @@
+RUN 1: TIMEOUT after 2000 cycles, halt never fired
+r0 = 0 (0x00000000)
+r1 = 270 (0x0000010e)
+r2 = 192 (0x000000c0)
+r3 = 78 (0x0000004e)
+r4 = 2147483647 (0x7fffffff)
+r5 = 1 (0x00000001)
+r6 = 18 (0x00000012)
+r7 = 0 (0x00000000)
+PC = 18
+RUN 2: TIMEOUT after 2000 cycles, halt never fired
+r0 = 0 (0x00000000)
+r1 = 270 (0x0000010e)
+r2 = 192 (0x000000c0)
+r3 = 78 (0x0000004e)
+r4 = 2147483647 (0x7fffffff)
+r5 = 1 (0x00000001)
+r6 = 18 (0x00000012)
+r7 = 0 (0x00000000)
+PC = 18
+Both runs complete.
+- src/gcd_tb.sv:69: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.029 devel
+- Verilator: $finish at 200us; walltime 0.006 s; speed 33.513 ms/s
+- Verilator: cpu 0.006 s on 1 threads; alloced 185 MB

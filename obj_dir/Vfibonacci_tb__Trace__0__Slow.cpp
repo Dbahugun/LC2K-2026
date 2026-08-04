@@ -187,7 +187,7 @@ VL_ATTR_COLD void Vfibonacci_tb___024root__trace_const_0_sub_0(Vfibonacci_tb___0
     // Init
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
     // Body
-    bufp->fullIData(oldp+59,(0x1f4U),32);
+    bufp->fullIData(oldp+59,(0x7d0U),32);
     bufp->fullIData(oldp+60,(0x20U),32);
     bufp->fullBit(oldp+61,(0U));
     bufp->fullIData(oldp+62,(vlSelfRef.fibonacci_tb__DOT__dut__DOT__regDest_val),32);

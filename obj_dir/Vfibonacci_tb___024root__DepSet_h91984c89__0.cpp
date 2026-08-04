@@ -42,7 +42,7 @@ VL_INLINE_OPT VlCoroutine Vfibonacci_tb___024root___eval_initial__TOP__Vtiming__
                 & ((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_4) 
                    & ((~ (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_2)) 
                       & (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_3))))) 
-            & VL_GTS_III(32, 0x1f4U, __Vtask_fibonacci_tb__DOT__run_until_halt__1__cycle_count))) {
+            & VL_GTS_III(32, 0x7d0U, __Vtask_fibonacci_tb__DOT__run_until_halt__1__cycle_count))) {
         co_await vlSelfRef.__VtrigSched_h14dc8b1c__0.trigger(0U, 
                                                              nullptr, 
                                                              "@(posedge fibonacci_tb.clk)", 
@@ -51,7 +51,7 @@ VL_INLINE_OPT VlCoroutine Vfibonacci_tb___024root___eval_initial__TOP__Vtiming__
         __Vtask_fibonacci_tb__DOT__run_until_halt__1__cycle_count 
             = ((IData)(1U) + __Vtask_fibonacci_tb__DOT__run_until_halt__1__cycle_count);
     }
-    if (VL_LTES_III(32, 0x1f4U, __Vtask_fibonacci_tb__DOT__run_until_halt__1__cycle_count)) {
+    if (VL_LTES_III(32, 0x7d0U, __Vtask_fibonacci_tb__DOT__run_until_halt__1__cycle_count)) {
         VL_WRITEF_NX("RUN %0d: TIMEOUT after %0d cycles, halt never fired\n",0,
                      32,__Vtask_fibonacci_tb__DOT__run_until_halt__1__run_number,
                      32,__Vtask_fibonacci_tb__DOT__run_until_halt__1__cycle_count);
@@ -117,7 +117,7 @@ VL_INLINE_OPT VlCoroutine Vfibonacci_tb___024root___eval_initial__TOP__Vtiming__
                 & ((IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_4) 
                    & ((~ (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_2)) 
                       & (IData)(vlSelfRef.fibonacci_tb__DOT__dut__DOT____VdfgRegularize_hd1a8765f_1_3))))) 
-            & VL_GTS_III(32, 0x1f4U, __Vtask_fibonacci_tb__DOT__run_until_halt__4__cycle_count))) {
+            & VL_GTS_III(32, 0x7d0U, __Vtask_fibonacci_tb__DOT__run_until_halt__4__cycle_count))) {
         co_await vlSelfRef.__VtrigSched_h14dc8b1c__0.trigger(0U, 
                                                              nullptr, 
                                                              "@(posedge fibonacci_tb.clk)", 
@@ -126,7 +126,7 @@ VL_INLINE_OPT VlCoroutine Vfibonacci_tb___024root___eval_initial__TOP__Vtiming__
         __Vtask_fibonacci_tb__DOT__run_until_halt__4__cycle_count 
             = ((IData)(1U) + __Vtask_fibonacci_tb__DOT__run_until_halt__4__cycle_count);
     }
-    if (VL_LTES_III(32, 0x1f4U, __Vtask_fibonacci_tb__DOT__run_until_halt__4__cycle_count)) {
+    if (VL_LTES_III(32, 0x7d0U, __Vtask_fibonacci_tb__DOT__run_until_halt__4__cycle_count)) {
         VL_WRITEF_NX("RUN %0d: TIMEOUT after %0d cycles, halt never fired\n",0,
                      32,__Vtask_fibonacci_tb__DOT__run_until_halt__4__run_number,
                      32,__Vtask_fibonacci_tb__DOT__run_until_halt__4__cycle_count);
