@@ -21,5 +21,5 @@ PC = 22
 Both runs complete.
 - src/gcd_tb.sv:69: Verilog $finish
 - S i m u l a t i o n   R e p o r t: Verilator 5.029 devel
-- Verilator: $finish at 17us; walltime 0.003 s; speed 4.838 ms/s
-- Verilator: cpu 0.003 s on 1 threads; alloced 185 MB
+- Verilator: $finish at 17us; walltime 0.004 s; speed 4.310 ms/s
+- Verilator: cpu 0.004 s on 1 threads; alloced 185 MB

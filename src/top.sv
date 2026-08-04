@@ -1,10 +1,11 @@
 /* verilator lint_off UNUSED */
-//Top level coordination file: Sim version
+//Top level coordination file
 module top 
     #(parameter W = 32)(
         //output logic [W-1:0] placeholder
         input logic resetButton,
-        input logic clk
+        input logic clk,
+        output logic led
     );
     
     //Assorted signals
@@ -161,7 +162,7 @@ module top
 
     //Combinational work, truncated for my self imposed memory depth of 256 words
     assign plusOne = PC + 8'b1;
-    assign beq = PC + offsetRaw[7:0] + 1;
+    assign beq = PC + offsetRaw[7:0] + 8'b1;
     assign jalr = regA_val[7:0];
     assign gw_gnd = 1'b0;
 
@@ -191,7 +192,9 @@ module top
 
     //Reset
     assign reset = !resetButton;
-
+    
+    //Halt
+    assign led = pcDisable;
 
     //MUXES
     //Note: I don't approve of this, but in the datapath the topmost path is 0, then 1, ..., even though I typically do it the other way around
@@ -206,11 +209,12 @@ module top
         end
 
         //Register file write value mux
-        if(regDataInSel[1] & regDataInSel[0]) begin
-            regFileWriteMux = aluResult;
-        end
-        else if(regDataInSel[1]) begin
+        //Note: I realized there was an error in my control ROM, this new MUX logic fixes said error
+        if(opcode == 3'b101) begin
             regFileWriteMux = {{24'b0}, plusOne};
+        end
+        else if(regDataInSel[0]) begin
+            regFileWriteMux = aluResult;
         end
         else begin
             regFileWriteMux = dataMemOut;

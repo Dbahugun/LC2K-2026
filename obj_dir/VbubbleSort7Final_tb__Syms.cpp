@@ -43,7 +43,7 @@ VbubbleSort7Final_tb__Syms::VbubbleSort7Final_tb__Syms(VerilatedContext* context
     , TOP{this, namep}
 {
         // Check resources
-        Verilated::stackCheck(66);
+        Verilated::stackCheck(70);
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-9);
     _vm_contextp__->timeprecision(-12);
