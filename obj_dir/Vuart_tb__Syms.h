@@ -4,24 +4,24 @@
 // Internal details; most calling programs do not need this header,
 // unless using verilator public meta comments.
 
-#ifndef VERILATED_VBUBBLESORT7FINAL_UART_TB__SYMS_H_
-#define VERILATED_VBUBBLESORT7FINAL_UART_TB__SYMS_H_  // guard
+#ifndef VERILATED_VUART_TB__SYMS_H_
+#define VERILATED_VUART_TB__SYMS_H_  // guard
 
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 
 // INCLUDE MODEL CLASS
 
-#include "VbubbleSort7Final_uart_tb.h"
+#include "Vuart_tb.h"
 
 // INCLUDE MODULE CLASSES
-#include "VbubbleSort7Final_uart_tb___024root.h"
+#include "Vuart_tb___024root.h"
 
 // SYMS CLASS (contains all model state)
-class alignas(VL_CACHE_LINE_BYTES)VbubbleSort7Final_uart_tb__Syms final : public VerilatedSyms {
+class alignas(VL_CACHE_LINE_BYTES)Vuart_tb__Syms final : public VerilatedSyms {
   public:
     // INTERNAL STATE
-    VbubbleSort7Final_uart_tb* const __Vm_modelp;
+    Vuart_tb* const __Vm_modelp;
     bool __Vm_dumping = false;  // Dumping is active
     VerilatedMutex __Vm_dumperMutex;  // Protect __Vm_dumperp
     VerilatedVcdC* __Vm_dumperp VL_GUARDED_BY(__Vm_dumperMutex) = nullptr;  /// Trace class for $dump*
@@ -31,11 +31,11 @@ class alignas(VL_CACHE_LINE_BYTES)VbubbleSort7Final_uart_tb__Syms final : public
     bool __Vm_didInit = false;
 
     // MODULE INSTANCE STATE
-    VbubbleSort7Final_uart_tb___024root TOP;
+    Vuart_tb___024root             TOP;
 
     // CONSTRUCTORS
-    VbubbleSort7Final_uart_tb__Syms(VerilatedContext* contextp, const char* namep, VbubbleSort7Final_uart_tb* modelp);
-    ~VbubbleSort7Final_uart_tb__Syms();
+    Vuart_tb__Syms(VerilatedContext* contextp, const char* namep, Vuart_tb* modelp);
+    ~Vuart_tb__Syms();
 
     // METHODS
     const char* name() { return TOP.name(); }

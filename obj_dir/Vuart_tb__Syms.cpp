@@ -1,24 +1,24 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "VbubbleSort7Final_uart_tb__pch.h"
-#include "VbubbleSort7Final_uart_tb.h"
-#include "VbubbleSort7Final_uart_tb___024root.h"
+#include "Vuart_tb__pch.h"
+#include "Vuart_tb.h"
+#include "Vuart_tb___024root.h"
 
 // FUNCTIONS
-VbubbleSort7Final_uart_tb__Syms::~VbubbleSort7Final_uart_tb__Syms()
+Vuart_tb__Syms::~Vuart_tb__Syms()
 {
 #ifdef VM_TRACE
     if (__Vm_dumping) _traceDumpClose();
 #endif  // VM_TRACE
 }
 
-void VbubbleSort7Final_uart_tb__Syms::_traceDump() {
+void Vuart_tb__Syms::_traceDump() {
     const VerilatedLockGuard lock(__Vm_dumperMutex);
     __Vm_dumperp->dump(VL_TIME_Q());
 }
 
-void VbubbleSort7Final_uart_tb__Syms::_traceDumpOpen() {
+void Vuart_tb__Syms::_traceDumpOpen() {
     const VerilatedLockGuard lock(__Vm_dumperMutex);
     if (VL_UNLIKELY(!__Vm_dumperp)) {
         __Vm_dumperp = new VerilatedVcdC();
@@ -29,13 +29,13 @@ void VbubbleSort7Final_uart_tb__Syms::_traceDumpOpen() {
     }
 }
 
-void VbubbleSort7Final_uart_tb__Syms::_traceDumpClose() {
+void Vuart_tb__Syms::_traceDumpClose() {
     const VerilatedLockGuard lock(__Vm_dumperMutex);
     __Vm_dumping = false;
     VL_DO_CLEAR(delete __Vm_dumperp, __Vm_dumperp = nullptr);
 }
 
-VbubbleSort7Final_uart_tb__Syms::VbubbleSort7Final_uart_tb__Syms(VerilatedContext* contextp, const char* namep, VbubbleSort7Final_uart_tb* modelp)
+Vuart_tb__Syms::Vuart_tb__Syms(VerilatedContext* contextp, const char* namep, Vuart_tb* modelp)
     : VerilatedSyms{contextp}
     // Setup internal state of the Syms class
     , __Vm_modelp{modelp}

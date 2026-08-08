@@ -2,7 +2,7 @@
 // DESCRIPTION: main() calling loop, created with Verilator --main
 
 #include "verilated.h"
-#include "VbubbleSort7Final_uart_tb.h"
+#include "Vuart_tb.h"
 
 //======================
 
@@ -14,7 +14,7 @@ int main(int argc, char** argv, char**) {
     contextp->commandArgs(argc, argv);
 
     // Construct the Verilated model, from Vtop.h generated from Verilating
-    const std::unique_ptr<VbubbleSort7Final_uart_tb> topp{new VbubbleSort7Final_uart_tb{contextp.get(), ""}};
+    const std::unique_ptr<Vuart_tb> topp{new Vuart_tb{contextp.get(), ""}};
 
     // Simulate until $finish
     while (!contextp->gotFinish()) {

@@ -2,7 +2,7 @@
 # DESCRIPTION: Verilator output: Make include file with class lists
 #
 # This file lists generated Verilated files, for including in higher level makefiles.
-# See VbubbleSort7Final_uart_tb.mk for the caller.
+# See Vuart_tb.mk for the caller.
 
 ### Switches...
 # C11 constructs required?  0/1 (always on now)
@@ -23,27 +23,27 @@ VM_TRACE_FST = 0
 ### Object file lists...
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
-	VbubbleSort7Final_uart_tb \
-	VbubbleSort7Final_uart_tb___024root__DepSet_h7d1e8e75__0 \
-	VbubbleSort7Final_uart_tb___024root__DepSet_h21b4861e__0 \
-	VbubbleSort7Final_uart_tb__main \
+	Vuart_tb \
+	Vuart_tb___024root__DepSet_h621ca214__0 \
+	Vuart_tb___024root__DepSet_h299ff880__0 \
+	Vuart_tb__main \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
-	VbubbleSort7Final_uart_tb__ConstPool_0 \
-	VbubbleSort7Final_uart_tb___024root__Slow \
-	VbubbleSort7Final_uart_tb___024root__DepSet_h7d1e8e75__0__Slow \
-	VbubbleSort7Final_uart_tb___024root__DepSet_h21b4861e__0__Slow \
+	Vuart_tb__ConstPool_0 \
+	Vuart_tb___024root__Slow \
+	Vuart_tb___024root__DepSet_h621ca214__0__Slow \
+	Vuart_tb___024root__DepSet_h299ff880__0__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
-	VbubbleSort7Final_uart_tb__Trace__0 \
+	Vuart_tb__Trace__0 \
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
 VM_SUPPORT_SLOW += \
-	VbubbleSort7Final_uart_tb__Syms \
-	VbubbleSort7Final_uart_tb__Trace__0__Slow \
-	VbubbleSort7Final_uart_tb__TraceDecls__0__Slow \
+	Vuart_tb__Syms \
+	Vuart_tb__Trace__0__Slow \
+	Vuart_tb__TraceDecls__0__Slow \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \

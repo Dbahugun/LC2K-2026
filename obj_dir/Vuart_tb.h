@@ -5,20 +5,20 @@
 // The class here is then constructed to instantiate the design.
 // See the Verilator manual for examples.
 
-#ifndef VERILATED_VBUBBLESORT7FINAL_UART_TB_H_
-#define VERILATED_VBUBBLESORT7FINAL_UART_TB_H_  // guard
+#ifndef VERILATED_VUART_TB_H_
+#define VERILATED_VUART_TB_H_  // guard
 
 #include "verilated.h"
 
-class VbubbleSort7Final_uart_tb__Syms;
-class VbubbleSort7Final_uart_tb___024root;
+class Vuart_tb__Syms;
+class Vuart_tb___024root;
 class VerilatedVcdC;
 
 // This class is the main interface to the Verilated model
-class alignas(VL_CACHE_LINE_BYTES) VbubbleSort7Final_uart_tb VL_NOT_FINAL : public VerilatedModel {
+class alignas(VL_CACHE_LINE_BYTES) Vuart_tb VL_NOT_FINAL : public VerilatedModel {
   private:
     // Symbol table holding complete model state (owned by this class)
-    VbubbleSort7Final_uart_tb__Syms* const vlSymsp;
+    Vuart_tb__Syms* const vlSymsp;
 
   public:
 
@@ -36,19 +36,19 @@ class alignas(VL_CACHE_LINE_BYTES) VbubbleSort7Final_uart_tb VL_NOT_FINAL : publ
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.
-    VbubbleSort7Final_uart_tb___024root* const rootp;
+    Vuart_tb___024root* const rootp;
 
     // CONSTRUCTORS
     /// Construct the model; called by application code
     /// If contextp is null, then the model will use the default global context
     /// If name is "", then makes a wrapper with a
     /// single model invisible with respect to DPI scope names.
-    explicit VbubbleSort7Final_uart_tb(VerilatedContext* contextp, const char* name = "TOP");
-    explicit VbubbleSort7Final_uart_tb(const char* name = "TOP");
+    explicit Vuart_tb(VerilatedContext* contextp, const char* name = "TOP");
+    explicit Vuart_tb(const char* name = "TOP");
     /// Destroy the model; called (often implicitly) by application code
-    virtual ~VbubbleSort7Final_uart_tb();
+    virtual ~Vuart_tb();
   private:
-    VL_UNCOPYABLE(VbubbleSort7Final_uart_tb);  ///< Copying not allowed
+    VL_UNCOPYABLE(Vuart_tb);  ///< Copying not allowed
 
   public:
     // API METHODS

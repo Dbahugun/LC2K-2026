@@ -3,7 +3,7 @@
 
 `timescale 1ns/1ps
 
-module bubbleSort7Final_uart_tb;
+module uart_tb;
 
 logic clk;
 logic rst;
@@ -72,12 +72,19 @@ endtask
 
 logic [7:0] rx_byte;
 integer byte_count;
+string line_buf = "";
 
 initial begin
     byte_count = 0;
     forever begin
         uart_receive_byte(rx_byte);
-        $display("[%0t ns] UART RX byte %0d: 0x%02h  '%c'", $time, byte_count, rx_byte, rx_byte);
+        if (rx_byte == 8'h0A) begin
+            $display("[%0t ns] UART: %s", $time, line_buf);
+            line_buf = "";
+        end
+        else begin
+            line_buf = {line_buf, string'(rx_byte)};
+        end
         byte_count++;
     end
 end

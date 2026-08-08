@@ -2,7 +2,7 @@
 # DESCRIPTION: Verilator output: Makefile for building Verilated archive or executable
 #
 # Execute this makefile from the object directory:
-#    make -f VbubbleSort7Final_uart_tb.mk
+#    make -f Vuart_tb.mk
 
 default: sim_uart
 
@@ -32,9 +32,9 @@ VM_SC_TARGET_ARCH = linux
 
 ### Vars...
 # Design prefix (from --prefix)
-VM_PREFIX = VbubbleSort7Final_uart_tb
+VM_PREFIX = Vuart_tb
 # Module prefix (from --prefix)
-VM_MODPREFIX = VbubbleSort7Final_uart_tb
+VM_MODPREFIX = Vuart_tb
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
 	-DVL_TIME_CONTEXT \
@@ -52,7 +52,7 @@ VM_USER_DIR = \
 
 ### Default rules...
 # Include list of all generated classes
-include VbubbleSort7Final_uart_tb_classes.mk
+include Vuart_tb_classes.mk
 # Include global rules
 include $(VERILATOR_ROOT)/include/verilated.mk
 

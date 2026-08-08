@@ -70,13 +70,13 @@ always_comb begin
         4'd2: asciiByte = 8'h3A;
         4'd3: asciiByte = 8'h20;
         4'd4: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd5: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd6: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd7: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd8: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd9: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd10: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd11: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
+        4'd5: asciiByte = ascii[allRegsFreeze[registerCounter][27:24]];
+        4'd6: asciiByte = ascii[allRegsFreeze[registerCounter][23:20]];
+        4'd7: asciiByte = ascii[allRegsFreeze[registerCounter][19:16]];
+        4'd8: asciiByte = ascii[allRegsFreeze[registerCounter][15:12]];
+        4'd9: asciiByte = ascii[allRegsFreeze[registerCounter][11:8]];
+        4'd10: asciiByte = ascii[allRegsFreeze[registerCounter][7:4]];
+        4'd11: asciiByte = ascii[allRegsFreeze[registerCounter][3:0]];
         4'd12: asciiByte = 8'h0A;
         //Below are supposedly unused
         4'd13: asciiByte = 8'h0A;
@@ -103,11 +103,12 @@ begin
         if(messageCounter == 4'd13 | registerCounter == 4'd8) begin
             // stall — a wraparound is committing this cycle, hold everything else frozen
         end
-        else if(bitCounter == 4'd0) begin
+        else if(bitCounter == 4'd0 & cycleCounter == conversion) begin
             shiftRegister <= {1'b1, asciiByte, 1'b0};
             bitCounter <= bitCounter + 1;
             //Outputting the new start bit I believe
             txOutHalt <= {1'b1, asciiByte, 1'b0}[0];
+            cycleCounter <= cycleCounter + 1;
         end
         else if(bitCounter == 4'd10) begin
             bitCounter <= 4'd0;
