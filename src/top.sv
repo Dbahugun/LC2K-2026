@@ -1,12 +1,13 @@
-//Top level coordination file
 /* verilator lint_off UNUSED */
-
-module top 
+//Top level coordination file: Sim Version
+module top
     #(parameter W = 32)(
         //output logic [W-1:0] placeholder
         input logic resetButton,
         input logic clk,
-        output logic led
+        output logic done,
+        output logic ovf,
+        output logic txBit
     );
     
     //Assorted signals
@@ -43,6 +44,8 @@ module top
     logic [W-1:0] regA_val;
     logic [W-1:0] regB_val;
     logic [W-1:0] regDest_val;
+    //Only used for UART
+    logic [7:0][W-1:0] allRegs;
 
     //ALU signals
     logic [W-1:0] aluResult;
@@ -59,6 +62,11 @@ module top
     logic [2:0] regFileReadMux;
     logic [W-1:0] regFileWriteMux;
     logic [W-1:0] aluMux;
+
+    //UART wires
+    //logic [7:0] txCycleCount;
+    logic txHaltTrigger;
+    logic txCycleTrigger;
 
     //Initializing all FFs/registers/sequential components
     /*initial regA_loc = 3'b0;
@@ -103,7 +111,8 @@ module top
         .WrEn(regFileWrEn),
         .dataIn(regFileWriteMux),
         .registerA(regA_val),
-        .registerB(regB_val)
+        .registerB(regB_val),
+        .allRegs(allRegs)
     );
 
     alu alu(
@@ -161,6 +170,15 @@ module top
         .dinb(32'b0) //input [31:0] dinb
     );
 
+    //Display peripheral modules
+    uart computerDisplay(
+        .clk(clk),
+        .halt(pcDisable),
+        .allRegs(allRegs),
+        .reset(reset),
+        .txOutHalt(txBit)
+    );
+
     //Combinational work, truncated for my self imposed memory depth of 256 words
     assign plusOne = PC + 8'b1;
     assign beq = PC + offsetRaw[7:0] + 8'b1;
@@ -191,11 +209,18 @@ module top
     assign branched = opcode[2] & !opcode[1] & !opcode[0] & equal;
     assign jumped = opcode[2] & !opcode[1] & opcode[0] & !equal;
 
+    //ALU signals
+    assign ovf = overflow;
+
+
     //Reset
     assign reset = !resetButton;
     
     //Halt
-    assign led = pcDisable;
+    assign done = pcDisable;
+
+    //UART signals
+    assign txHaltTrigger = pcDisable;   //pcDisable is the same as the halt opcode so I might as well start broadcasting then.
 
     //MUXES
     //Note: I don't approve of this, but in the datapath the topmost path is 0, then 1, ..., even though I typically do it the other way around
@@ -229,7 +254,23 @@ module top
             aluMux = offsetExtended;
         end
 
+        //UART
+        /*if(txCycleCount == 234) begin
+            txCycleTrigger = 1'b1;
+        end
+        else begin
+            txCycleTrigger = 1'b0;
+        end*/
     end
 
+    //Sequential Timing
+    /*always_ff @(clk) begin
+        if(txCycleCount == 234) begin
+            txCycleCount <= 8'b0;
+        end
+        else begin
+            txCycleCount <= txCycleCount + 1;
+        end
+    end*/
     
 endmodule

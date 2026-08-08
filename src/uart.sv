@@ -95,34 +95,34 @@ begin
     if(state == dataTransmit) begin
         if(messageCounter == 4'd13) begin
             messageCounter <= 4'd0;
-            registerCounter <= registerCounter + 1;
+            registerCounter <= registerCounter + 4'b1;
         end
         if(registerCounter == 4'd8) begin
             state <= done;
         end
         if(messageCounter == 4'd13 | registerCounter == 4'd8) begin
-            // stall — a wraparound is committing this cycle, hold everything else frozen
+            //stall
         end
         else if(bitCounter == 4'd0 & cycleCounter == conversion) begin
             shiftRegister <= {1'b1, asciiByte, 1'b0};
-            bitCounter <= bitCounter + 1;
+            bitCounter <= bitCounter + 4'b1;
             //Outputting the new start bit I believe
             txOutHalt <= {1'b1, asciiByte, 1'b0}[0];
-            cycleCounter <= cycleCounter + 1;
+            cycleCounter <= cycleCounter + 8'b1;
         end
         else if(bitCounter == 4'd10) begin
             bitCounter <= 4'd0;
-            messageCounter <= messageCounter + 1;
+            messageCounter <= messageCounter + 4'b1;
         end
         else if(cycleCounter == conversion) begin
             shiftRegister <= shiftRegister >> 1;
-            bitCounter <= bitCounter + 1;
+            bitCounter <= bitCounter + 4'b1;
             cycleCounter <= 8'b0;
             //Grab the new 0 bit. There were syntax issues so I'm using this but the intent is the same
             txOutHalt <= shiftRegister[1];
         end
         else begin
-            cycleCounter <= cycleCounter + 1;
+            cycleCounter <= cycleCounter + 8'b1;
         end
     end
     else if(state == initState | state == done) begin
