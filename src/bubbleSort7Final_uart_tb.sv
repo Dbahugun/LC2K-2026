@@ -1,18 +1,20 @@
-//Bubble sort 8 fast test, the finalizing one. 
+//Bubble sort 7 fast test, the detailed one.
 /* verilator lint_off UNUSED */
 
 `timescale 1ns/1ps
 
-module bubbleSort8Fast_tb;
+module bubbleSort7Final_uart_tb;
 
 logic clk;
 logic rst;
 logic ovf;
 logic done;
+logic txOut;
 
-top_sim dut (
+top_sim_uart dut (
     .clk(clk),
     .resetButton(rst),
+    .txBit(txOut),
     .ovf(ovf),
     .done(done)
 );
@@ -20,7 +22,9 @@ top_sim dut (
 initial clk = 0;
 always #25 clk <= ~clk;   // 50ns period
 
-localparam int MAX_CYCLES = 2000; // short enough to stay readable in GTKWave
+localparam int MAX_CYCLES = 2000;
+localparam int UART_PASS_CYCLES = 8 * 13 * 10 * 234;
+localparam int UART_WAIT_CYCLES = UART_PASS_CYCLES + 5000;
 
 task print_registers;
     $display("r0 = %0d (0x%08X)", dut.reg_file.registers[0], dut.reg_file.registers[0]);
@@ -35,9 +39,9 @@ task print_registers;
 endtask
 
 task do_reset;
-    rst = 0;                 // resetButton=0 -> reset=1, held in reset
+    rst = 0;
     repeat(1) @(posedge clk);
-    rst = 1;                 // resetButton=1 -> reset=0, released
+    rst = 1;
 endtask
 
 task run_until_halt(input int run_number);
@@ -55,20 +59,44 @@ task run_until_halt(input int run_number);
     print_registers();
 endtask
 
-initial begin
-    $dumpfile("sim/bubbleSort8Fast.vcd");
-    $dumpvars(0, bubbleSort8Fast_tb);
+task automatic uart_receive_byte(output [7:0] byte_out);
+    integer i;
+    @(negedge txOut);
+    repeat (117) @(posedge clk);
+    repeat (234) @(posedge clk);
+    for (i = 0; i < 8; i++) begin
+        byte_out[i] = txOut;
+        repeat (234) @(posedge clk);
+    end
+endtask
 
-    // ---- Run 1 ----
+logic [7:0] rx_byte;
+integer byte_count;
+
+initial begin
+    byte_count = 0;
+    forever begin
+        uart_receive_byte(rx_byte);
+        $display("[%0t ns] UART RX byte %0d: 0x%02h  '%c'", $time, byte_count, rx_byte, rx_byte);
+        byte_count++;
+    end
+end
+
+initial begin
+    $dumpfile("sim/bubbleSort7Final.vcd");
+    $dumpvars(0, bubbleSort7Final_uart_tb);
+
     do_reset();
     run_until_halt(1);
 
-    // Hold at halt for 5 extra cycles so it's visible in the waveform
-    repeat(5) @(posedge clk);
+    $display("Waiting for run 1's UART pass to complete...");
+    repeat(UART_WAIT_CYCLES) @(posedge clk);
 
-    // ---- Run 2 ----
     do_reset();
     run_until_halt(2);
+
+    $display("Waiting for run 2's UART pass to complete...");
+    repeat(UART_WAIT_CYCLES) @(posedge clk);
 
     $display("Both runs complete.");
     $finish;

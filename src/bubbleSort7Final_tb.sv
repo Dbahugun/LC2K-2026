@@ -1,4 +1,5 @@
 //Bubble sort 7 fast test, the detailed one. 
+/* verilator lint_off UNUSED */
 
 `timescale 1ns/1ps
 
@@ -6,10 +7,14 @@ module bubbleSort7Final_tb;
 
 logic clk;
 logic rst;
+logic ovf;
+logic done;
 
 top_sim dut (
     .clk(clk),
-    .resetButton(rst)
+    .resetButton(rst),
+    .ovf(ovf),
+    .done(done)
 );
 
 initial clk = 0;

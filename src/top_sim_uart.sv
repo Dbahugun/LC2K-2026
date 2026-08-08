@@ -1,13 +1,13 @@
-//Top level coordination file: Sim Version
 /* verilator lint_off UNUSED */
-
-module top_sim 
+//Top level coordination file: Sim Version
+module top_sim_uart
     #(parameter W = 32)(
         //output logic [W-1:0] placeholder
         input logic resetButton,
         input logic clk,
         output logic done,
-        output logic ovf
+        output logic ovf,
+        output logic txBit
     );
     
     //Assorted signals
@@ -168,6 +168,15 @@ module top_sim
         .dina(regB_val), //input [31:0] dina
         .adb(8'b0), //input [7:0] adb
         .dinb(32'b0) //input [31:0] dinb
+    );
+
+    //Display peripheral modules
+    uart computerDisplay(
+        .clk(clk),
+        .halt(pcDisable),
+        .allRegs(allRegs),
+        .reset(reset),
+        .txOutHalt(txBit)
     );
 
     //Combinational work, truncated for my self imposed memory depth of 256 words

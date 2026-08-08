@@ -1,4 +1,5 @@
 //Fibonacci test, the big one. 
+/* verilator lint_off UNUSED */
 
 `timescale 1ns/1ps
 
@@ -6,10 +7,14 @@ module fibonacci_tb;
 
 logic clk;
 logic rst;
+logic done;
+logic ovf;
 
 top_sim dut (
     .clk(clk),
-    .resetButton(rst)
+    .resetButton(rst),
+    .ovf(ovf),
+    .done(done)
 );
 
 initial clk = 0;

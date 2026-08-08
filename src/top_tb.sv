@@ -1,14 +1,20 @@
 //Testbench for the entire LC2K processor. Utilizes a version of top.sv that uses simulated data memory instead of the gowin stubs, since those don't compile. This one just spams reset
+/* verilator lint_off UNUSED */
+
 `timescale 1us/1ns
 
 module top_tb;
 
 logic clk;
 logic rst;
+logic ovf;
+logic done;
 
 top_sim dut (
     .clk(clk),
-    .resetButton(rst)
+    .resetButton(rst),
+    .ovf(ovf),
+    .done(done)
 );
 
 initial clk = 0;

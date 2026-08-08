@@ -1,5 +1,6 @@
-/* verilator lint_off UNUSED */
 //Top level coordination file
+/* verilator lint_off UNUSED */
+
 module top 
     #(parameter W = 32)(
         //output logic [W-1:0] placeholder

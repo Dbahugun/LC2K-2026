@@ -9,7 +9,8 @@ module register_file
         input logic WrEn,
         input logic [W-1:0] dataIn,
         output logic [W-1:0] registerA,
-        output logic [W-1:0] registerB
+        output logic [W-1:0] registerB,
+        output logic [7:0][W-1:0] allRegs
     );
 
     //Start writing implementation here for the actual register file. Should be an array of FFs, but how do I initialize them? Do I even need to?
@@ -27,6 +28,7 @@ module register_file
     begin
         registerA = registers[addressA];
         registerB = registers[addressB];
+        allRegs = registers;
     end
 
     always_ff @( posedge clk ) 
@@ -34,7 +36,7 @@ module register_file
         if(WrEn & addressDest != 'b0) begin
             registers[addressDest] <= dataIn;
         end
-        else if (reset) begin
+        if (reset) begin
             for(int j = 0; j < 8; ++j) begin
                 registers[j] <= 'b0;
             end
