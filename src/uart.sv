@@ -108,7 +108,7 @@ begin
             bitCounter <= bitCounter + 4'b1;
             //Outputting the new start bit I believe
             txOutHalt <= {1'b1, asciiByte, 1'b0}[0];
-            cycleCounter <= cycleCounter + 8'b1;
+            cycleCounter <= 8'd0;
         end
         else if(bitCounter == 4'd10) begin
             bitCounter <= 4'd0;

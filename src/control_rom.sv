@@ -1,5 +1,6 @@
 //IP Core Generator snippet goes below. Allegedly I call this and never worry about it again, but there are errors?
 //Currently Loaded with: fibonacci
+
 //Copyright (C)2014-2026 Gowin Semiconductor Corporation.
 //All rights reserved.
 //File Title: IP file
@@ -7,7 +8,7 @@
 //IP Version: 1.0
 //Part Number: GW2AR-LV18QN88PC8/I7
 //Device: GW2AR-18
-//Created Time: Tue Aug  4 15:58:53 2026
+//Created Time: Sat Aug  8 20:15:11 2026
 
 module control_rom (dout, clk, oce, ce, reset, ad);
 
@@ -37,4 +38,4 @@ defparam prom_inst_0.BIT_WIDTH = 8;
 defparam prom_inst_0.RESET_MODE = "SYNC";
 defparam prom_inst_0.INIT_RAM_00 = 256'h000000000000000000000000000000000000000000000000000030080312BCB8;
 
-endmodule //control_prom_final
+endmodule //control_rom

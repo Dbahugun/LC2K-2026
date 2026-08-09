@@ -283,6 +283,7 @@ void Vuart_tb___024root___eval_nba(Vuart_tb___024root* vlSelf) {
 }
 
 extern const VlWide<13>/*415:0*/ Vuart_tb__ConstPool__CONST_hdfdbf4b4_0;
+extern const VlWide<14>/*447:0*/ Vuart_tb__ConstPool__CONST_he4c432b2_0;
 extern const VlWide<8>/*255:0*/ Vuart_tb__ConstPool__CONST_h9e67c271_0;
 
 VL_INLINE_OPT void Vuart_tb___024root___nba_sequent__TOP__0(Vuart_tb___024root* vlSelf) {
@@ -343,6 +344,9 @@ VL_INLINE_OPT void Vuart_tb___024root___nba_sequent__TOP__0(Vuart_tb___024root* 
         }
     } else {
         VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(13, Vuart_tb__ConstPool__CONST_hdfdbf4b4_0)
+                     ,  &(vlSelfRef.uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem)
+                     , 0, ~0ULL);
+        VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(14, Vuart_tb__ConstPool__CONST_he4c432b2_0)
                      ,  &(vlSelfRef.uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem)
                      , 0, ~0ULL);
     }

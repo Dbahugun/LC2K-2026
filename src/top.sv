@@ -7,7 +7,8 @@ module top
         input logic clk,
         output logic done,
         output logic ovf,
-        output logic txBit
+        output logic txBit,
+        output logic resetLED
     );
     
     //Assorted signals
@@ -215,6 +216,7 @@ module top
 
     //Reset
     assign reset = !resetButton;
+    assign resetLED = reset;
     
     //Halt
     assign done = pcDisable;
