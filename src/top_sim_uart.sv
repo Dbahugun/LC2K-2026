@@ -7,7 +7,8 @@ module top_sim_uart
         input logic clk,
         output logic done,
         output logic ovf,
-        output logic txBit
+        output logic txBit,
+        output logic resetLED
     );
     
     //Assorted signals
@@ -67,6 +68,7 @@ module top_sim_uart
     //logic [7:0] txCycleCount;
     logic txHaltTrigger;
     logic txCycleTrigger;
+    logic [31:0] haltCycleCount;
 
     //Initializing all FFs/registers/sequential components
     /*initial regA_loc = 3'b0;
@@ -176,7 +178,9 @@ module top_sim_uart
         .halt(pcDisable),
         .allRegs(allRegs),
         .reset(reset),
-        .txOutHalt(txBit)
+        .txOutHalt(txBit),
+        //Debugging only, repurposing R0 to display cycle count
+        .haltCycleCount(haltCycleCount)
     );
 
     //Combinational work, truncated for my self imposed memory depth of 256 words
@@ -215,6 +219,7 @@ module top_sim_uart
 
     //Reset
     assign reset = !resetButton;
+    assign resetLED = reset;
     
     //Halt
     assign done = pcDisable;
@@ -272,5 +277,11 @@ module top_sim_uart
             txCycleCount <= txCycleCount + 1;
         end
     end*/
-    
+
+    //UART Debugging
+    always_ff @(posedge clk) begin
+        if(reset) haltCycleCount <= 32'b0;
+        else if(!pcDisable) haltCycleCount <= haltCycleCount + 32'b1;
+    end
+
 endmodule

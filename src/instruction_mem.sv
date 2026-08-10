@@ -52,7 +52,7 @@ endmodule //instruction_mem
 //IP Version: 1.0
 //Part Number: GW2AR-LV18QN88PC8/I7
 //Device: GW2AR-18
-//Created Time: Tue Aug  4 16:00:37 2026
+//Created Time: Sun Aug  9 15:56:50 2026
 
 module instruction_mem (dout, clk, oce, ce, reset, ad);
 
@@ -78,11 +78,12 @@ pROM prom_inst_0 (
 
 defparam prom_inst_0.READ_MODE = 1'b0;
 defparam prom_inst_0.BIT_WIDTH = 32;
-defparam prom_inst_0.RESET_MODE = "SYNC";
+defparam prom_inst_0.RESET_MODE = "ASYNC";
 defparam prom_inst_0.INIT_RAM_00 = 256'h007C0007005B0007000A00030005000600050002000000010085000F0084000E;
 defparam prom_inst_0.INIT_RAM_01 = 256'h000000017FFFFFFF0100FFF70035000600180002001000010180000001380001;
 
 endmodule //instruction_mem
+
 
 
 

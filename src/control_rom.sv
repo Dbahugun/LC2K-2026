@@ -8,7 +8,7 @@
 //IP Version: 1.0
 //Part Number: GW2AR-LV18QN88PC8/I7
 //Device: GW2AR-18
-//Created Time: Sat Aug  8 20:15:11 2026
+//Created Time: Sun Aug  9 15:55:46 2026
 
 module control_rom (dout, clk, oce, ce, reset, ad);
 
@@ -35,7 +35,7 @@ pROM prom_inst_0 (
 
 defparam prom_inst_0.READ_MODE = 1'b0;
 defparam prom_inst_0.BIT_WIDTH = 8;
-defparam prom_inst_0.RESET_MODE = "SYNC";
+defparam prom_inst_0.RESET_MODE = "ASYNC";
 defparam prom_inst_0.INIT_RAM_00 = 256'h000000000000000000000000000000000000000000000000000030080312BCB8;
 
 endmodule //control_rom

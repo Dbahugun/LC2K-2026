@@ -1,18 +1,22 @@
+/* verilator lint_off UNUSED */
 
 module uart(
     input logic clk,
     input logic halt,
     input logic [7:0][31:0] allRegs,
     input logic reset, 
-    output logic txOutHalt
+    output logic txOutHalt,
     //output logic [7:0] outputByteCycle
+    //For debugging only
+    input logic [31:0] haltCycleCount
 );
 
 //Params/States
 localparam conversion = 8'd234;
 localparam initState = 2'd0;
-localparam dataTransmit = 2'd1;
-localparam done = 2'd2;
+localparam dataTransmitCycle = 2'd1;
+localparam dataTransmitDisable = 2'd2;
+localparam done = 2'd3;
 
 //State register
 logic [1:0] state;
@@ -20,6 +24,9 @@ initial state = initState;
 
 //Registers to hold the already existing registers for the duration of the transmission
 logic [7:0][31:0] allRegsFreeze;
+//For debugging cycle counter
+logic [31:0] frozenCycleCount;
+logic [31:0] displayVal;
 
 //Counters
 //Counts to 234 cycles
@@ -30,6 +37,7 @@ logic [3:0] registerCounter;
 logic [3:0] bitCounter;
 //Counts to every 1 register message sent
 logic [3:0] messageCounter;
+//For cycling
 
 initial cycleCounter = 8'b0;
 initial registerCounter = 4'b0;
@@ -39,6 +47,9 @@ initial messageCounter = 4'b0;
 //Shift register
 logic [9:0] shiftRegister;
 logic [7:0] asciiByte;
+
+//Halt sticky bit
+logic halt_latched;
 
 //Declare 4-bit ASCII LUT here. I don't quite remember how to do it but I did it in 270. Then I use 2 for loops and parse 4 bits at a time I believe. 
 logic [7:0] ascii[0:15];	   // TC4 to 7-segment magnitude Look-up Table
@@ -64,19 +75,28 @@ end
 
 //Combinational logic
 always_comb begin
+    //For debugging only
+    displayVal = (registerCounter == 4'd0) ? frozenCycleCount : allRegsFreeze[registerCounter];
+
     case(messageCounter)
-        4'd0: asciiByte = 8'h52;
+        4'd0: 
+            if(registerCounter == 0) begin
+                asciiByte = 8'h43;
+            end
+            else begin
+                asciiByte = 8'h52;
+            end
         4'd1: asciiByte = 8'h30 + {4'b0, registerCounter};
         4'd2: asciiByte = 8'h3A;
         4'd3: asciiByte = 8'h20;
-        4'd4: asciiByte = ascii[allRegsFreeze[registerCounter][31:28]];
-        4'd5: asciiByte = ascii[allRegsFreeze[registerCounter][27:24]];
-        4'd6: asciiByte = ascii[allRegsFreeze[registerCounter][23:20]];
-        4'd7: asciiByte = ascii[allRegsFreeze[registerCounter][19:16]];
-        4'd8: asciiByte = ascii[allRegsFreeze[registerCounter][15:12]];
-        4'd9: asciiByte = ascii[allRegsFreeze[registerCounter][11:8]];
-        4'd10: asciiByte = ascii[allRegsFreeze[registerCounter][7:4]];
-        4'd11: asciiByte = ascii[allRegsFreeze[registerCounter][3:0]];
+        4'd4: asciiByte = ascii[displayVal[31:28]];
+        4'd5: asciiByte = ascii[displayVal[27:24]];
+        4'd6: asciiByte = ascii[displayVal[23:20]];
+        4'd7: asciiByte = ascii[displayVal[19:16]];
+        4'd8: asciiByte = ascii[displayVal[15:12]];
+        4'd9: asciiByte = ascii[displayVal[11:8]];
+        4'd10: asciiByte = ascii[displayVal[7:4]];
+        4'd11: asciiByte = ascii[displayVal[3:0]];
         4'd12: asciiByte = 8'h0A;
         //Below are supposedly unused
         4'd13: asciiByte = 8'h0A;
@@ -88,11 +108,19 @@ end
 //Sequential timing logic and output
 always_ff @(posedge clk)
 begin
-    if(halt & (state == initState)) begin
+    if(!halt_latched & halt & (state == initState)) begin
         allRegsFreeze <= allRegs;
-        state <= dataTransmit;
+        frozenCycleCount <= haltCycleCount;
+        state <= dataTransmitDisable;
     end
-    if(state == dataTransmit) begin
+    else if (halt_latched & state == initState) begin
+        state <= dataTransmitCycle;
+        registerCounter <= 4'd0;
+        messageCounter <= 4'd0;
+        bitCounter <= 4'd0;
+        cycleCounter <= 8'd0;
+    end    
+    if(state == dataTransmitDisable | state == dataTransmitCycle) begin
         if(messageCounter == 4'd13) begin
             messageCounter <= 4'd0;
             registerCounter <= registerCounter + 4'b1;
@@ -125,16 +153,24 @@ begin
             cycleCounter <= cycleCounter + 8'b1;
         end
     end
-    else if(state == initState | state == done) begin
+    if(state == initState) begin
         txOutHalt <= 1'b1;
     end
-
+    else if(state == done) begin
+        state <= initState;
+        txOutHalt <= 1'b1;
+    end
     if(reset) begin
         state <= initState;
         messageCounter <= 4'd0;
         registerCounter <= 4'd0;
         bitCounter <= 4'd0;
         cycleCounter <= 8'd0;
+        frozenCycleCount <= 32'b0;
+        halt_latched <= 1'b0;
+    end
+    else if(halt) begin
+        halt_latched <= 1'b1;
     end
     /*else if(txCycle) begin
 

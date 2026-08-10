@@ -6,6 +6,8 @@
 #include "Vuart_tb__Syms.h"
 #include "Vuart_tb___024root.h"
 
+extern const VlWide<8>/*255:0*/ Vuart_tb__ConstPool__CONST_hcc2efa00_0;
+
 VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vuart_tb___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vuart_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -24,22 +26,15 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
     __Vtask_uart_tb__DOT__run_until_halt__5__run_number = 0;
     IData/*31:0*/ __Vtask_uart_tb__DOT__run_until_halt__5__cycle_count;
     __Vtask_uart_tb__DOT__run_until_halt__5__cycle_count = 0;
-    VlWide<6>/*191:0*/ __Vtemp_1;
     // Body
-    __Vtemp_1[0U] = 0x2e766364U;
-    __Vtemp_1[1U] = 0x696e616cU;
-    __Vtemp_1[2U] = 0x72743746U;
-    __Vtemp_1[3U] = 0x6c65536fU;
-    __Vtemp_1[4U] = 0x62756262U;
-    __Vtemp_1[5U] = 0x73696d2fU;
-    vlSymsp->_vm_contextp__->dumpfile(VL_CVT_PACK_STR_NW(6, __Vtemp_1));
+    vlSymsp->_vm_contextp__->dumpfile(VL_CVT_PACK_STR_NW(8, Vuart_tb__ConstPool__CONST_hcc2efa00_0));
     vlSymsp->_traceDumpOpen();
     vlSelfRef.uart_tb__DOT__rst = 0U;
     co_await vlSelfRef.__VtrigSched_h24b2bb95__0.trigger(0U, 
                                                          nullptr, 
                                                          "@(posedge uart_tb.clk)", 
                                                          "src/uart_tb.sv", 
-                                                         43);
+                                                         45);
     vlSelfRef.uart_tb__DOT__rst = 1U;
     __Vtask_uart_tb__DOT__run_until_halt__2__run_number = 1U;
     __Vtask_uart_tb__DOT__run_until_halt__2__cycle_count = 0U;
@@ -50,7 +45,7 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
                                                              nullptr, 
                                                              "@(posedge uart_tb.clk)", 
                                                              "src/uart_tb.sv", 
-                                                             51);
+                                                             53);
         __Vtask_uart_tb__DOT__run_until_halt__2__cycle_count 
             = ((IData)(1U) + __Vtask_uart_tb__DOT__run_until_halt__2__cycle_count);
     }
@@ -88,7 +83,7 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
                                                              nullptr, 
                                                              "@(posedge uart_tb.clk)", 
                                                              "src/uart_tb.sv", 
-                                                             100);
+                                                             102);
         uart_tb__DOT__unnamedblk1_5__DOT____Vrepeat4 
             = (uart_tb__DOT__unnamedblk1_5__DOT____Vrepeat4 
                - (IData)(1U));
@@ -98,7 +93,7 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
                                                          nullptr, 
                                                          "@(posedge uart_tb.clk)", 
                                                          "src/uart_tb.sv", 
-                                                         43);
+                                                         45);
     vlSelfRef.uart_tb__DOT__rst = 1U;
     __Vtask_uart_tb__DOT__run_until_halt__5__run_number = 2U;
     __Vtask_uart_tb__DOT__run_until_halt__5__cycle_count = 0U;
@@ -109,7 +104,7 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
                                                              nullptr, 
                                                              "@(posedge uart_tb.clk)", 
                                                              "src/uart_tb.sv", 
-                                                             51);
+                                                             53);
         __Vtask_uart_tb__DOT__run_until_halt__5__cycle_count 
             = ((IData)(1U) + __Vtask_uart_tb__DOT__run_until_halt__5__cycle_count);
     }
@@ -147,13 +142,13 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
                                                              nullptr, 
                                                              "@(posedge uart_tb.clk)", 
                                                              "src/uart_tb.sv", 
-                                                             106);
+                                                             108);
         uart_tb__DOT__unnamedblk1_6__DOT____Vrepeat5 
             = (uart_tb__DOT__unnamedblk1_6__DOT____Vrepeat5 
                - (IData)(1U));
     }
     VL_WRITEF_NX("Both runs complete.\n",0);
-    VL_FINISH_MT("src/uart_tb.sv", 109, "");
+    VL_FINISH_MT("src/uart_tb.sv", 111, "");
 }
 
 #ifdef VL_DEBUG

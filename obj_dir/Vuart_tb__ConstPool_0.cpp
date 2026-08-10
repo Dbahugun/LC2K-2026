@@ -22,6 +22,11 @@ extern const VlWide<8>/*255:0*/ Vuart_tb__ConstPool__CONST_h9e67c271_0 = {{
     0x00000000, 0x00000000, 0x00000000, 0x00000000
 }};
 
+extern const VlWide<8>/*255:0*/ Vuart_tb__ConstPool__CONST_hcc2efa00_0 = {{
+    0x2e766364, 0x74657374, 0x745f6c61, 0x5f756172,
+    0x61636369, 0x69626f6e, 0x696d2f66, 0x00000073
+}};
+
 extern const VlWide<13>/*415:0*/ Vuart_tb__ConstPool__CONST_hdfdbf4b4_0 = {{
     0x6d2e6d69, 0x74615369, 0x63694461, 0x6f6e6163,
     0x2f666962, 0x646f6373, 0x3032362f, 0x324b2d32,

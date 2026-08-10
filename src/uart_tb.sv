@@ -10,13 +10,15 @@ logic rst;
 logic ovf;
 logic done;
 logic txOut;
+logic resetLEDBlank;
 
 top_sim_uart dut (
     .clk(clk),
     .resetButton(rst),
     .txBit(txOut),
     .ovf(ovf),
-    .done(done)
+    .done(done),
+    .resetLED(resetLEDBlank)
 );
 
 initial clk = 0;
@@ -90,8 +92,8 @@ initial begin
 end
 
 initial begin
-    $dumpfile("sim/bubbleSort7Final.vcd");
-    $dumpvars(0, bubbleSort7Final_uart_tb);
+    $dumpfile("sim/fibonacci_uart_latest.vcd");
+    $dumpvars(0, uart_tb);
 
     do_reset();
     run_until_halt(1);

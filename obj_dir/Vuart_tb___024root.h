@@ -39,6 +39,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final : public VerilatedMo
     CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter;
     CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter;
     CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__asciiByte;
+    CData/*0:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__halt_latched;
     CData/*0:0*/ __VdlyVal__uart_tb__DOT__clk__v0;
     CData/*0:0*/ __VdlySet__uart_tb__DOT__clk__v0;
     CData/*0:0*/ __VstlFirstIteration;
@@ -52,10 +53,13 @@ class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final : public VerilatedMo
     IData/*31:0*/ uart_tb__DOT__dut__DOT__regDest_val;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__aluResult;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__aluMux;
+    IData/*31:0*/ uart_tb__DOT__dut__DOT__haltCycleCount;
     VlWide<8>/*255:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__registers;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk1__DOT__i;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk2__DOT__j;
     VlWide<8>/*255:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze;
+    IData/*31:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount;
+    IData/*31:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal;
     IData/*31:0*/ __VactIterCount;
     VlUnpacked<IData/*31:0*/, 256> uart_tb__DOT__dut__DOT__instruction__DOT__instructionSimMem;
     VlUnpacked<CData/*7:0*/, 8> uart_tb__DOT__dut__DOT__control_prom__DOT__control_rom;
