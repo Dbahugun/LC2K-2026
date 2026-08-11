@@ -43,7 +43,7 @@ Vuart_tb__Syms::Vuart_tb__Syms(VerilatedContext* contextp, const char* namep, Vu
     , TOP{this, namep}
 {
         // Check resources
-        Verilated::stackCheck(97);
+        Verilated::stackCheck(169);
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-9);
     _vm_contextp__->timeprecision(-12);

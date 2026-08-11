@@ -34,7 +34,9 @@ class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final : public VerilatedMo
     CData/*7:0*/ uart_tb__DOT__dut__DOT__PC_File__DOT__newPC;
     CData/*0:0*/ uart_tb__DOT__dut__DOT__alu__DOT__sameMSB;
     CData/*1:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__state;
-    CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC;
+    CData/*4:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceWriteIndex;
+    CData/*4:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex;
+    CData/*4:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceCountFrozen;
     CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__cycleCounter;
     CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter;
     CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter;
@@ -59,13 +61,13 @@ class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final : public VerilatedMo
     VlWide<8>/*255:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__registers;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk1__DOT__i;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk2__DOT__j;
-    VlWide<8>/*255:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze;
-    IData/*31:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal;
     IData/*31:0*/ __VactIterCount;
     VlUnpacked<IData/*31:0*/, 256> uart_tb__DOT__dut__DOT__instruction__DOT__instructionSimMem;
     VlUnpacked<CData/*7:0*/, 8> uart_tb__DOT__dut__DOT__control_prom__DOT__control_rom;
     VlUnpacked<IData/*31:0*/, 256> uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem;
+    VlUnpacked<CData/*7:0*/, 16> uart_tb__DOT__dut__DOT__computerDisplay__DOT__tracePC;
+    VlUnpacked<VlWide<8>/*255:0*/, 16> uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceRegs;
     VlUnpacked<CData/*7:0*/, 16> uart_tb__DOT__dut__DOT__computerDisplay__DOT__ascii;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     std::string uart_tb__DOT__line_buf;

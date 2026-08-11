@@ -65,10 +65,14 @@ VL_ATTR_COLD void Vuart_tb___024root___eval_initial__TOP(Vuart_tb___024root* vlS
                  ,  &(vlSelfRef.uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem)
                  , 0, ~0ULL);
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__state = 0U;
+    vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceWriteIndex = 0U;
+    vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex = 0U;
+    vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceCountFrozen = 0U;
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__cycleCounter = 0U;
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter = 0U;
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter = 0U;
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter = 0U;
+    vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__halt_latched = 0U;
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__ascii[0U] = 0x30U;
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__ascii[1U] = 0x31U;
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__ascii[2U] = 0x32U;
@@ -171,17 +175,20 @@ VL_ATTR_COLD void Vuart_tb___024root___stl_sequent__TOP__0(Vuart_tb___024root* v
     // Body
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal 
         = ((0U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
-            ? vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount
+            ? (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex)
             : ((8U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
-                ? (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC)
+                ? vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__tracePC
+               [(0xfU & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex))]
                 : (((0U == (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U)))
-                     ? 0U : (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
+                     ? 0U : (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceRegs
+                             [(0xfU & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex))][
                              (((IData)(0x1fU) + (0xffU 
                                                  & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))) 
                               >> 5U)] << ((IData)(0x20U) 
                                           - (0x1fU 
                                              & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))) 
-                   | (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
+                   | (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceRegs
+                      [(0xfU & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex))][
                       (7U & (VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U) 
                              >> 5U))] >> (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))));
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__asciiByte 
@@ -236,7 +243,7 @@ VL_ATTR_COLD void Vuart_tb___024root___stl_sequent__TOP__0(Vuart_tb___024root* v
                                                     : 
                                                    ((0U 
                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
-                                                     ? 0x43U
+                                                     ? 0x54U
                                                      : 
                                                     ((8U 
                                                       == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
@@ -531,10 +538,16 @@ VL_ATTR_COLD void Vuart_tb___024root___ctor_var_reset(Vuart_tb___024root* vlSelf
         vlSelf->uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem[__Vi0] = VL_RAND_RESET_I(32);
     }
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__state = VL_RAND_RESET_I(2);
-    VL_RAND_RESET_W(256, vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze);
-    vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount = VL_RAND_RESET_I(32);
+    for (int __Vi0 = 0; __Vi0 < 16; ++__Vi0) {
+        vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__tracePC[__Vi0] = VL_RAND_RESET_I(8);
+    }
+    for (int __Vi0 = 0; __Vi0 < 16; ++__Vi0) {
+        VL_RAND_RESET_W(256, vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceRegs[__Vi0]);
+    }
+    vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceWriteIndex = VL_RAND_RESET_I(5);
+    vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex = VL_RAND_RESET_I(5);
+    vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceCountFrozen = VL_RAND_RESET_I(5);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal = VL_RAND_RESET_I(32);
-    vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC = VL_RAND_RESET_I(8);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__cycleCounter = VL_RAND_RESET_I(8);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter = VL_RAND_RESET_I(4);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter = VL_RAND_RESET_I(4);
