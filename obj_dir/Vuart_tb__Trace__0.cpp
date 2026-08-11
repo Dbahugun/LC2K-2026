@@ -145,18 +145,20 @@ void Vuart_tb___024root__trace_chg_0_sub_0(Vuart_tb___024root* vlSelf, Verilated
         bufp->chgWData(oldp+75,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze),256);
         bufp->chgIData(oldp+83,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount),32);
         bufp->chgIData(oldp+84,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal),32);
-        bufp->chgSData(oldp+85,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__shiftRegister),10);
-        bufp->chgCData(oldp+86,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__asciiByte),8);
-        bufp->chgBit(oldp+87,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__halt_latched));
-        bufp->chgCData(oldp+88,((0xffU & vlSelfRef.uart_tb__DOT__dut__DOT__aluResult)),8);
-        bufp->chgIData(oldp+89,(vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk2__DOT__j),32);
+        bufp->chgCData(oldp+85,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC),8);
+        bufp->chgSData(oldp+86,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__shiftRegister),10);
+        bufp->chgCData(oldp+87,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__asciiByte),8);
+        bufp->chgBit(oldp+88,(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__halt_latched));
+        bufp->chgCData(oldp+89,((0xffU & vlSelfRef.uart_tb__DOT__dut__DOT__aluResult)),8);
+        bufp->chgIData(oldp+90,(vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk2__DOT__j),32);
     }
-    bufp->chgBit(oldp+90,(vlSelfRef.uart_tb__DOT__clk));
-    bufp->chgBit(oldp+91,(vlSelfRef.uart_tb__DOT__rst));
-    bufp->chgBit(oldp+92,((1U & (~ (IData)(vlSelfRef.uart_tb__DOT__rst)))));
-    bufp->chgCData(oldp+93,(vlSelfRef.uart_tb__DOT__rx_byte),8);
-    bufp->chgIData(oldp+94,(vlSelfRef.uart_tb__DOT__byte_count),32);
-    bufp->chgCData(oldp+95,(((IData)(vlSelfRef.uart_tb__DOT__rst)
+    bufp->chgBit(oldp+91,(vlSelfRef.uart_tb__DOT__clk));
+    bufp->chgBit(oldp+92,(vlSelfRef.uart_tb__DOT__rst));
+    bufp->chgBit(oldp+93,((1U & (~ (IData)(vlSelfRef.uart_tb__DOT__rst)))));
+    bufp->chgCData(oldp+94,(vlSelfRef.uart_tb__DOT__rx_byte),8);
+    bufp->chgIData(oldp+95,(vlSelfRef.uart_tb__DOT__byte_count),32);
+    bufp->chgIData(oldp+96,(vlSelfRef.uart_tb__DOT__line_count),32);
+    bufp->chgCData(oldp+97,(((IData)(vlSelfRef.uart_tb__DOT__rst)
                               ? (0xffU & (((IData)(vlSelfRef.uart_tb__DOT__dut__DOT____VdfgRegularize_h8ea05e1a_1_1) 
                                            & ((~ (IData)(vlSelfRef.uart_tb__DOT__dut__DOT____VdfgRegularize_h8ea05e1a_1_2)) 
                                               & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__equal)))

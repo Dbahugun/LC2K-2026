@@ -26,9 +26,9 @@ VL_ATTR_COLD void Vuart_tb___024root___eval_static__TOP(Vuart_tb___024root* vlSe
 }
 
 extern const VlWide<8>/*255:0*/ Vuart_tb__ConstPool__CONST_h9e67c271_0;
-extern const VlWide<14>/*447:0*/ Vuart_tb__ConstPool__CONST_h040dc5f1_0;
+extern const VlWide<14>/*447:0*/ Vuart_tb__ConstPool__CONST_hda622efe_0;
 extern const VlWide<12>/*383:0*/ Vuart_tb__ConstPool__CONST_h231c5920_0;
-extern const VlWide<13>/*415:0*/ Vuart_tb__ConstPool__CONST_hdfdbf4b4_0;
+extern const VlWide<13>/*415:0*/ Vuart_tb__ConstPool__CONST_h045c877d_0;
 
 VL_ATTR_COLD void Vuart_tb___024root___eval_initial__TOP(Vuart_tb___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
@@ -55,13 +55,13 @@ VL_ATTR_COLD void Vuart_tb___024root___eval_initial__TOP(Vuart_tb___024root* vlS
     vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__registers[7U] 
         = Vuart_tb__ConstPool__CONST_h9e67c271_0[7U];
     vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk1__DOT__i = 8U;
-    VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(14, Vuart_tb__ConstPool__CONST_h040dc5f1_0)
+    VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(14, Vuart_tb__ConstPool__CONST_hda622efe_0)
                  ,  &(vlSelfRef.uart_tb__DOT__dut__DOT__instruction__DOT__instructionSimMem)
                  , 0, ~0ULL);
     VL_READMEM_N(true, 8, 8, 0, VL_CVT_PACK_STR_NW(12, Vuart_tb__ConstPool__CONST_h231c5920_0)
                  ,  &(vlSelfRef.uart_tb__DOT__dut__DOT__control_prom__DOT__control_rom)
                  , 0, ~0ULL);
-    VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(13, Vuart_tb__ConstPool__CONST_hdfdbf4b4_0)
+    VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(13, Vuart_tb__ConstPool__CONST_h045c877d_0)
                  ,  &(vlSelfRef.uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem)
                  , 0, ~0ULL);
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__state = 0U;
@@ -172,15 +172,18 @@ VL_ATTR_COLD void Vuart_tb___024root___stl_sequent__TOP__0(Vuart_tb___024root* v
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal 
         = ((0U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
             ? vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount
-            : (((0U == (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U)))
-                 ? 0U : (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
-                         (((IData)(0x1fU) + (0xffU 
-                                             & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))) 
-                          >> 5U)] << ((IData)(0x20U) 
-                                      - (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))) 
-               | (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
-                  (7U & (VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U) 
-                         >> 5U))] >> (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U)))));
+            : ((8U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                ? (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC)
+                : (((0U == (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U)))
+                     ? 0U : (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
+                             (((IData)(0x1fU) + (0xffU 
+                                                 & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))) 
+                              >> 5U)] << ((IData)(0x20U) 
+                                          - (0x1fU 
+                                             & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))) 
+                   | (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
+                      (7U & (VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U) 
+                             >> 5U))] >> (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))));
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__asciiByte 
         = (0xffU & ((8U & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter))
                      ? ((4U & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter))
@@ -224,13 +227,21 @@ VL_ATTR_COLD void Vuart_tb___024root___stl_sequent__TOP__0(Vuart_tb___024root* v
                                                   ((1U 
                                                     & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter))
                                                     ? 
-                                                   ((IData)(0x30U) 
-                                                    + (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                                                   ((8U 
+                                                     == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                                                     ? 0x43U
+                                                     : 
+                                                    ((IData)(0x30U) 
+                                                     + (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter)))
                                                     : 
                                                    ((0U 
                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
                                                      ? 0x43U
-                                                     : 0x52U))))));
+                                                     : 
+                                                    ((8U 
+                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                                                      ? 0x50U
+                                                      : 0x52U)))))));
     vlSelfRef.uart_tb__DOT__dut__DOT____VdfgRegularize_h8ea05e1a_1_2 
         = (1U & (vlSelfRef.uart_tb__DOT__dut__DOT__instruction__DOT__instructionSimMem
                  [vlSelfRef.uart_tb__DOT__dut__DOT__PC] 
@@ -486,6 +497,7 @@ VL_ATTR_COLD void Vuart_tb___024root___ctor_var_reset(Vuart_tb___024root* vlSelf
     vlSelf->uart_tb__DOT__txOut = VL_RAND_RESET_I(1);
     vlSelf->uart_tb__DOT__rx_byte = VL_RAND_RESET_I(8);
     vlSelf->uart_tb__DOT__byte_count = VL_RAND_RESET_I(32);
+    vlSelf->uart_tb__DOT__line_count = VL_RAND_RESET_I(32);
     vlSelf->uart_tb__DOT__dut__DOT__pcDisable = VL_RAND_RESET_I(1);
     vlSelf->uart_tb__DOT__dut__DOT__PC = VL_RAND_RESET_I(8);
     vlSelf->uart_tb__DOT__dut__DOT__regB_loc = VL_RAND_RESET_I(3);
@@ -522,6 +534,7 @@ VL_ATTR_COLD void Vuart_tb___024root___ctor_var_reset(Vuart_tb___024root* vlSelf
     VL_RAND_RESET_W(256, vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount = VL_RAND_RESET_I(32);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal = VL_RAND_RESET_I(32);
+    vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC = VL_RAND_RESET_I(8);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__cycleCounter = VL_RAND_RESET_I(8);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter = VL_RAND_RESET_I(4);
     vlSelf->uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter = VL_RAND_RESET_I(4);

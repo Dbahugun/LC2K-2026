@@ -4,6 +4,7 @@ module uart(
     input logic clk,
     input logic halt,
     input logic [7:0][31:0] allRegs,
+    input logic [7:0] PC,
     input logic reset, 
     output logic txOutHalt,
     //output logic [7:0] outputByteCycle
@@ -27,6 +28,7 @@ logic [7:0][31:0] allRegsFreeze;
 //For debugging cycle counter
 logic [31:0] frozenCycleCount;
 logic [31:0] displayVal;
+logic [7:0] frozenPC;
 
 //Counters
 //Counts to 234 cycles
@@ -76,17 +78,26 @@ end
 //Combinational logic
 always_comb begin
     //For debugging only
-    displayVal = (registerCounter == 4'd0) ? frozenCycleCount : allRegsFreeze[registerCounter];
+    displayVal = (registerCounter == 4'd0) ? frozenCycleCount : ((registerCounter == 4'd8) ? {24'b0, frozenPC} : allRegsFreeze[registerCounter]);
 
     case(messageCounter)
         4'd0: 
-            if(registerCounter == 0) begin
+            if(registerCounter == 4'd0) begin
                 asciiByte = 8'h43;
+            end
+            else if(registerCounter == 4'd8) begin
+                asciiByte = 8'h50;
             end
             else begin
                 asciiByte = 8'h52;
             end
-        4'd1: asciiByte = 8'h30 + {4'b0, registerCounter};
+        4'd1: 
+            if(registerCounter == 4'd8) begin
+                asciiByte = 8'h43;
+            end
+            else begin
+                asciiByte = 8'h30 + {4'b0, registerCounter};
+            end
         4'd2: asciiByte = 8'h3A;
         4'd3: asciiByte = 8'h20;
         4'd4: asciiByte = ascii[displayVal[31:28]];
@@ -109,6 +120,7 @@ end
 always_ff @(posedge clk)
 begin
     if(!halt_latched & halt & (state == initState)) begin
+        frozenPC <= PC;
         allRegsFreeze <= allRegs;
         frozenCycleCount <= haltCycleCount;
         state <= dataTransmitDisable;
@@ -125,10 +137,10 @@ begin
             messageCounter <= 4'd0;
             registerCounter <= registerCounter + 4'b1;
         end
-        if(registerCounter == 4'd8) begin
+        if(registerCounter == 4'd9) begin
             state <= done;
         end
-        if(messageCounter == 4'd13 | registerCounter == 4'd8) begin
+        if(messageCounter == 4'd13 | registerCounter == 4'd9) begin
             //stall
         end
         else if(bitCounter == 4'd0 & cycleCounter == conversion) begin

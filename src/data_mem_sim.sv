@@ -20,10 +20,11 @@ input [7:0] adb;
 input [31:0] dinb;
 
 logic [31:0] dataSimMem [255:0];
-initial $readmemh("/home/dbahugun/LC2K-2026/docs/fibonacciDataSim.mi", dataSimMem);
+//initial $readmemh("/home/dbahugun/LC2K-2026/docs/fibonacciDataSim.mi", dataSimMem);
 //initial $readmemh("/home/dbahugun/LC2K-2026/docs/bubbleSort8DataSim.mi", dataSimMem);
 //initial $readmemh("/home/dbahugun/LC2K-2026/docs/bubbleSort7FinalDataSim.mi", dataSimMem);
 //initial $readmemh("/home/dbahugun/LC2K-2026/docs/gcdDataSim.mi", dataSimMem);
+initial $readmemh("/home/dbahugun/LC2K-2026/docs/fiveLoadsDataSim.mi", dataSimMem);
 
 assign douta = dataSimMem[ada];
 assign doutb = dataSimMem[adb];
@@ -31,10 +32,11 @@ assign doutb = dataSimMem[adb];
 always_ff @(posedge clka) begin
     //Forgot to incorporate reset, here it is
     if(reseta) begin
-        $readmemh("/home/dbahugun/LC2K-2026/docs/fibonacciDataSim.mi", dataSimMem);
+        //$readmemh("/home/dbahugun/LC2K-2026/docs/fibonacciDataSim.mi", dataSimMem);
         //$readmemh("/home/dbahugun/LC2K-2026/docs/bubbleSort8DataSim.mi", dataSimMem);
         //$readmemh("/home/dbahugun/LC2K-2026/docs/bubbleSort7FinalDataSim.mi", dataSimMem);
         //$readmemh("/home/dbahugun/LC2K-2026/docs/gcdDataSim.mi", dataSimMem);
+        $readmemh("/home/dbahugun/LC2K-2026/docs/fiveLoadsDataSim.mi", dataSimMem);
     end
     else if(wrea) begin
         dataSimMem[ada] <= dina;

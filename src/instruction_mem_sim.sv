@@ -10,10 +10,13 @@ input reset;
 input [7:0] ad;
 
 logic [31:0] instructionSimMem [255:0];
-initial $readmemh("/home/dbahugun/LC2K-2026/docs/fibonacciInstructionSim.mi", instructionSimMem);
+//initial $readmemh("/home/dbahugun/LC2K-2026/docs/fibonacciInstructionSim.mi", instructionSimMem);
 //initial $readmemh("/home/dbahugun/LC2K-2026/docs/bubbleSort8InstructionSim.mi", instructionSimMem);
 //initial $readmemh("/home/dbahugun/LC2K-2026/docs/bubbleSort7FinalInstructionSim.mi", instructionSimMem);
 //initial $readmemh("/home/dbahugun/LC2K-2026/docs/gcdInstructionSim.mi", instructionSimMem);
+initial $readmemh("/home/dbahugun/LC2K-2026/docs/fiveLoadsInstructionSim.mi", instructionSimMem);
+
+
 
 assign dout = instructionSimMem[ad];
 

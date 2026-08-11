@@ -34,6 +34,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final : public VerilatedMo
     CData/*7:0*/ uart_tb__DOT__dut__DOT__PC_File__DOT__newPC;
     CData/*0:0*/ uart_tb__DOT__dut__DOT__alu__DOT__sameMSB;
     CData/*1:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__state;
+    CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC;
     CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__cycleCounter;
     CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter;
     CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter;
@@ -48,6 +49,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final : public VerilatedMo
     CData/*0:0*/ __VactContinue;
     SData/*9:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__shiftRegister;
     IData/*31:0*/ uart_tb__DOT__byte_count;
+    IData/*31:0*/ uart_tb__DOT__line_count;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__regA_val;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__regB_val;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__regDest_val;

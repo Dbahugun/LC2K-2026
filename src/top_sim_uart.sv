@@ -180,7 +180,8 @@ module top_sim_uart
         .reset(reset),
         .txOutHalt(txBit),
         //Debugging only, repurposing R0 to display cycle count
-        .haltCycleCount(haltCycleCount)
+        .haltCycleCount(haltCycleCount),
+        .PC(PC)
     );
 
     //Combinational work, truncated for my self imposed memory depth of 256 words

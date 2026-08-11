@@ -43,6 +43,7 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__0(Vua
     __Vtask_uart_tb__DOT__uart_receive_byte__0__uart_tb__DOT__unnamedblk1_4__DOT____Vrepeat3 = 0;
     // Body
     vlSelfRef.uart_tb__DOT__byte_count = 0U;
+    vlSelfRef.uart_tb__DOT__line_count = 0U;
     while (1U) {
         co_await vlSelfRef.__VtrigSched_h5928e91a__0.trigger(0U, 
                                                              nullptr, 
@@ -196,6 +197,8 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__0(Vua
                          VL_TIME_UNITED_Q(1000),-9,
                          -1,&(vlSelfRef.uart_tb__DOT__line_buf));
             vlSelfRef.uart_tb__DOT__line_buf = std::string{""};
+            vlSelfRef.uart_tb__DOT__line_count = ((IData)(1U) 
+                                                  + vlSelfRef.uart_tb__DOT__line_count);
         } else {
             vlSelfRef.uart_tb__DOT__line_buf = VL_CONCATN_NNN(vlSelfRef.uart_tb__DOT__line_buf, 
                                                               VL_CVT_PACK_STR_NI((IData)(vlSelfRef.uart_tb__DOT__rx_byte)));
@@ -282,7 +285,7 @@ void Vuart_tb___024root___eval_nba(Vuart_tb___024root* vlSelf) {
     }
 }
 
-extern const VlWide<13>/*415:0*/ Vuart_tb__ConstPool__CONST_hdfdbf4b4_0;
+extern const VlWide<13>/*415:0*/ Vuart_tb__ConstPool__CONST_h045c877d_0;
 extern const VlWide<8>/*255:0*/ Vuart_tb__ConstPool__CONST_h9e67c271_0;
 
 VL_INLINE_OPT void Vuart_tb___024root___nba_sequent__TOP__0(Vuart_tb___024root* vlSelf) {
@@ -354,13 +357,15 @@ VL_INLINE_OPT void Vuart_tb___024root___nba_sequent__TOP__0(Vuart_tb___024root* 
             __VdlySet__uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem__v0 = 1U;
         }
     } else {
-        VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(13, Vuart_tb__ConstPool__CONST_hdfdbf4b4_0)
+        VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(13, Vuart_tb__ConstPool__CONST_h045c877d_0)
                      ,  &(vlSelfRef.uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem)
                      , 0, ~0ULL);
     }
     if ((((~ (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__halt_latched)) 
           & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__pcDisable)) 
          & (0U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__state)))) {
+        vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC 
+            = vlSelfRef.uart_tb__DOT__dut__DOT__PC;
         vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[0U] 
             = vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__registers[0U];
         vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[1U] 
@@ -395,11 +400,11 @@ VL_INLINE_OPT void Vuart_tb___024root___nba_sequent__TOP__0(Vuart_tb___024root* 
                 = (0xfU & ((IData)(1U) + (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter)));
             __Vdly__uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter = 0U;
         }
-        if ((8U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))) {
+        if ((9U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))) {
             __Vdly__uart_tb__DOT__dut__DOT__computerDisplay__DOT__state = 3U;
         }
         if ((1U & (~ ((0xdU == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter)) 
-                      | (8U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter)))))) {
+                      | (9U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter)))))) {
             if (((0U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter)) 
                  & (0xeaU == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__cycleCounter)))) {
                 __Vdly__uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter 
@@ -459,15 +464,18 @@ VL_INLINE_OPT void Vuart_tb___024root___nba_sequent__TOP__0(Vuart_tb___024root* 
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal 
         = ((0U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
             ? vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenCycleCount
-            : (((0U == (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U)))
-                 ? 0U : (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
-                         (((IData)(0x1fU) + (0xffU 
-                                             & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))) 
-                          >> 5U)] << ((IData)(0x20U) 
-                                      - (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))) 
-               | (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
-                  (7U & (VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U) 
-                         >> 5U))] >> (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U)))));
+            : ((8U == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                ? (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC)
+                : (((0U == (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U)))
+                     ? 0U : (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
+                             (((IData)(0x1fU) + (0xffU 
+                                                 & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))) 
+                              >> 5U)] << ((IData)(0x20U) 
+                                          - (0x1fU 
+                                             & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))) 
+                   | (vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze[
+                      (7U & (VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U) 
+                             >> 5U))] >> (0x1fU & VL_SHIFTL_III(8,32,32, (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter), 5U))))));
     vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__asciiByte 
         = (0xffU & ((8U & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter))
                      ? ((4U & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter))
@@ -511,13 +519,21 @@ VL_INLINE_OPT void Vuart_tb___024root___nba_sequent__TOP__0(Vuart_tb___024root* 
                                                   ((1U 
                                                     & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter))
                                                     ? 
-                                                   ((IData)(0x30U) 
-                                                    + (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                                                   ((8U 
+                                                     == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                                                     ? 0x43U
+                                                     : 
+                                                    ((IData)(0x30U) 
+                                                     + (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter)))
                                                     : 
                                                    ((0U 
                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
                                                      ? 0x43U
-                                                     : 0x52U))))));
+                                                     : 
+                                                    ((8U 
+                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                                                      ? 0x50U
+                                                      : 0x52U)))))));
     if (((vlSelfRef.uart_tb__DOT__dut__DOT__control_prom__DOT__control_rom
           [vlSelfRef.uart_tb__DOT__dut__DOT__opcode] 
           >> 4U) & (0U != (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__regFileReadMux)))) {

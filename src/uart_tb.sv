@@ -25,7 +25,7 @@ initial clk = 0;
 always #25 clk <= ~clk;   // 50ns period
 
 localparam int MAX_CYCLES = 2000;
-localparam int UART_PASS_CYCLES = 8 * 13 * 10 * 234;
+localparam int UART_PASS_CYCLES = 9 * 13 * 10 * 234;
 localparam int UART_WAIT_CYCLES = UART_PASS_CYCLES + 5000;
 
 task print_registers;
@@ -74,15 +74,18 @@ endtask
 
 logic [7:0] rx_byte;
 integer byte_count;
+integer line_count;
 string line_buf = "";
 
 initial begin
     byte_count = 0;
+    line_count = 0;
     forever begin
         uart_receive_byte(rx_byte);
         if (rx_byte == 8'h0A) begin
             $display("[%0t ns] UART: %s", $time, line_buf);
             line_buf = "";
+            line_count++;
         end
         else begin
             line_buf = {line_buf, string'(rx_byte)};
@@ -100,6 +103,7 @@ initial begin
 
     $display("Waiting for run 1's UART pass to complete...");
     repeat(UART_WAIT_CYCLES) @(posedge clk);
+    $display("Lines received so far: %0d (expect 9 for C0+R1-R7+PC)", line_count);
 
     do_reset();
     run_until_halt(2);
@@ -107,7 +111,7 @@ initial begin
     $display("Waiting for run 2's UART pass to complete...");
     repeat(UART_WAIT_CYCLES) @(posedge clk);
 
-    $display("Both runs complete.");
+    $display("Both runs complete. Total lines received: %0d", line_count);
     $finish;
 end
 
