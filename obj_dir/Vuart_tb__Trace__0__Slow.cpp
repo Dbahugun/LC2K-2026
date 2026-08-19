@@ -260,8 +260,8 @@ VL_ATTR_COLD void Vuart_tb___024root__trace_const_0_sub_0(Vuart_tb___024root* vl
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
     // Body
     bufp->fullIData(oldp+236,(0x7d0U),32);
-    bufp->fullIData(oldp+237,(0x42d74U),32);
-    bufp->fullIData(oldp+238,(0x440fcU),32);
+    bufp->fullIData(oldp+237,(0x14e344U),32);
+    bufp->fullIData(oldp+238,(0x154eb0U),32);
     bufp->fullIData(oldp+239,(0x20U),32);
     bufp->fullBit(oldp+240,(0U));
     bufp->fullIData(oldp+241,(vlSelfRef.uart_tb__DOT__dut__DOT__regDest_val),32);

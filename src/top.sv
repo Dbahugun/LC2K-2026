@@ -137,19 +137,11 @@ module top
 
     instruction_mem instruction(
         .dout(fullInstruction), //output [31:0] dout
-        .clk(clk), //input clk
-        .oce(1'b1), //input oce
-        .ce(1'b1), //input ce
-        .reset(reset), //input reset
         .ad(PC) //input [7:0] ad
     );
 
     control_rom control_prom(
         .dout(controlSignal), //output [7:0] dout
-        .clk(clk), //input clk
-        .oce(1'b1), //input oce
-        .ce(1'b1), //input ce
-        .reset(reset), //input reset
         .ad(opcode) //input [2:0] ad
     );
 

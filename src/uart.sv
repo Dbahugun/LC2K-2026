@@ -1,6 +1,6 @@
 /* verilator lint_off UNUSED */
 
-module uart(
+/*module uart(
     input logic clk,
     input logic halt,
     input logic [7:0][31:0] allRegs,
@@ -191,7 +191,7 @@ end
 
 endmodule
 
-
+*/
 //Claudes attempt so I know if I'm crazy or not
 
 
@@ -385,6 +385,7 @@ endmodule
 //Claudes "uart_trace"
 
 /* verilator lint_off UNUSED */
+/* verilator lint_off UNUSED */
 // Trace-buffer UART, case-statement version. Same interface and same
 // trace-capture behavior as the earlier draft, but restructured to match
 // uart_case.sv's single case(state) FSM style, for the same reason:
@@ -395,7 +396,7 @@ endmodule
 // TRACE_DEPTH entries), freezes naturally when halt asserts, then
 // transmits each captured entry as its own 9-line labeled block
 // (Tn/R1-R7/PC) after halt, replaying the whole trace forever.
-/*
+
 module uart(
     input logic clk,
     input logic halt,
@@ -405,16 +406,16 @@ module uart(
     output logic txOutHalt,
     input logic [31:0] haltCycleCount   // kept for interface compatibility, unused here
 );
- 
-localparam TRACE_DEPTH = 16;
+
+localparam TRACE_DEPTH = 6;
 localparam conversion = 8'd234;
 localparam initState = 2'd0;
 localparam transmitting = 2'd1;
 localparam done = 2'd2;
- 
+
 logic [1:0] state;
 initial state = initState;
- 
+
 //---------------------------------------------------------------
 // Trace capture: runs continuously pre-halt, freezes itself at halt
 //---------------------------------------------------------------
@@ -422,7 +423,7 @@ logic [7:0] tracePC [0:TRACE_DEPTH-1];
 logic [7:0][31:0] traceRegs [0:TRACE_DEPTH-1];
 logic [4:0] traceWriteIndex;
 initial traceWriteIndex = 5'd0;
- 
+
 always_ff @(posedge clk) begin
     if(reset) begin
         traceWriteIndex <= 5'd0;
@@ -433,7 +434,7 @@ always_ff @(posedge clk) begin
         traceWriteIndex <= traceWriteIndex + 5'b1;
     end
 end
- 
+
 //---------------------------------------------------------------
 // Which trace entry is currently being transmitted
 //---------------------------------------------------------------
@@ -441,25 +442,25 @@ logic [4:0] traceIndex;
 initial traceIndex = 5'd0;
 logic [4:0] traceCountFrozen;
 initial traceCountFrozen = 5'd0;
- 
+
 logic [31:0] displayVal;
- 
+
 logic [7:0] cycleCounter;
 logic [3:0] registerCounter;
 logic [3:0] bitCounter;
 logic [3:0] messageCounter;
- 
+
 initial cycleCounter = 8'b0;
 initial registerCounter = 4'b0;
 initial bitCounter = 4'b0;
 initial messageCounter = 4'b0;
- 
+
 logic [9:0] shiftRegister;
 logic [7:0] asciiByte;
- 
+
 logic halt_latched;
 initial halt_latched = 1'b0;
- 
+
 logic [7:0] ascii[0:15];
 initial begin
     ascii[0] = 8'h30;  ascii[1] = 8'h31;  ascii[2] = 8'h32;  ascii[3] = 8'h33;
@@ -467,19 +468,20 @@ initial begin
     ascii[8] = 8'h38;  ascii[9] = 8'h39;  ascii[10] = 8'h41; ascii[11] = 8'h42;
     ascii[12] = 8'h43; ascii[13] = 8'h44; ascii[14] = 8'h45; ascii[15] = 8'h46;
 end
- 
+
 always_comb begin
     displayVal = (registerCounter == 4'd0) ? {27'b0, traceIndex} :
                  (registerCounter == 4'd8) ? {24'b0, tracePC[traceIndex[3:0]]} :
                  traceRegs[traceIndex[3:0]][registerCounter];
- 
+
     case(messageCounter)
         4'd0:
             if(registerCounter == 4'd0) asciiByte = 8'h54;      // 'T'
             else if(registerCounter == 4'd8) asciiByte = 8'h50; // 'P'
             else asciiByte = 8'h52;                              // 'R'
         4'd1:
-            if(registerCounter == 4'd8) asciiByte = 8'h43;      // 'C' -> "PC:"
+            if(registerCounter == 4'd0) asciiByte = ascii[traceIndex[3:0]]; // entry number (0-F), not registerCounter
+            else if(registerCounter == 4'd8) asciiByte = 8'h43;      // 'C' -> "PC:"
             else asciiByte = 8'h30 + {4'b0, registerCounter};
         4'd2: asciiByte = 8'h3A;
         4'd3: asciiByte = 8'h20;
@@ -497,7 +499,7 @@ always_comb begin
         4'd15: asciiByte = 8'h0A;
     endcase
 end
- 
+
 always_ff @(posedge clk) begin
     if(reset) begin
         state <= initState;
@@ -512,7 +514,7 @@ always_ff @(posedge clk) begin
     end
     else begin
         case(state)
- 
+
             initState: begin
                 txOutHalt <= 1'b1;
                 if(!halt_latched & halt) begin
@@ -534,7 +536,7 @@ always_ff @(posedge clk) begin
                     state <= transmitting;
                 end
             end
- 
+
             transmitting: begin
                 if(messageCounter == 4'd13) begin
                     messageCounter <= 4'd0;
@@ -573,20 +575,18 @@ always_ff @(posedge clk) begin
                     cycleCounter <= cycleCounter + 8'b1;
                 end
             end
- 
+
             done: begin
                 txOutHalt <= 1'b1;
                 state <= initState;
             end
- 
+
             default: begin
                 state <= initState;
             end
- 
+
         endcase
     end
 end
- 
-endmodule
 
-*/
+endmodule

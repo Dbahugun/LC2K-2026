@@ -33,12 +33,12 @@ module register_file
 
     always_ff @( posedge clk ) 
     begin
-        if(WrEn & addressDest != 'b0) begin
+        if(WrEn & addressDest != 3'b0) begin
             registers[addressDest] <= dataIn;
         end
         if (reset) begin
             for(int j = 0; j < 8; ++j) begin
-                registers[j] <= 'b0;
+                registers[j] <= 32'b0;
             end
         end
     end

@@ -234,12 +234,20 @@ VL_ATTR_COLD void Vuart_tb___024root___stl_sequent__TOP__0(Vuart_tb___024root* v
                                                   ((1U 
                                                     & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter))
                                                     ? 
-                                                   ((8U 
+                                                   ((0U 
                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
-                                                     ? 0x43U
+                                                     ? 
+                                                    vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__ascii
+                                                    [
+                                                    (0xfU 
+                                                     & (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex))]
                                                      : 
-                                                    ((IData)(0x30U) 
-                                                     + (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter)))
+                                                    ((8U 
+                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))
+                                                      ? 0x43U
+                                                      : 
+                                                     ((IData)(0x30U) 
+                                                      + (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))))
                                                     : 
                                                    ((0U 
                                                      == (IData)(vlSelfRef.uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter))

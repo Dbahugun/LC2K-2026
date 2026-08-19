@@ -77,7 +77,7 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
                  32,vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__registers[7U],
                  32,vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__registers[7U],
                  8,(IData)(vlSelfRef.uart_tb__DOT__dut__DOT__PC));
-    uart_tb__DOT__unnamedblk1_5__DOT____Vrepeat4 = 0x440fcU;
+    uart_tb__DOT__unnamedblk1_5__DOT____Vrepeat4 = 0x154eb0U;
     while (VL_LTS_III(32, 0U, uart_tb__DOT__unnamedblk1_5__DOT____Vrepeat4)) {
         co_await vlSelfRef.__VtrigSched_h24b2bb95__0.trigger(0U, 
                                                              nullptr, 
@@ -138,7 +138,7 @@ VL_INLINE_OPT VlCoroutine Vuart_tb___024root___eval_initial__TOP__Vtiming__1(Vua
                  32,vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__registers[7U],
                  32,vlSelfRef.uart_tb__DOT__dut__DOT__reg_file__DOT__registers[7U],
                  8,(IData)(vlSelfRef.uart_tb__DOT__dut__DOT__PC));
-    uart_tb__DOT__unnamedblk1_6__DOT____Vrepeat5 = 0x440fcU;
+    uart_tb__DOT__unnamedblk1_6__DOT____Vrepeat5 = 0x154eb0U;
     while (VL_LTS_III(32, 0U, uart_tb__DOT__unnamedblk1_6__DOT____Vrepeat5)) {
         co_await vlSelfRef.__VtrigSched_h24b2bb95__0.trigger(0U, 
                                                              nullptr, 

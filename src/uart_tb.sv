@@ -25,8 +25,8 @@ initial clk = 0;
 always #25 clk <= ~clk;   // 50ns period
 
 localparam int MAX_CYCLES = 2000;
-localparam int UART_PASS_CYCLES = 9 * 13 * 10 * 234;
-localparam int UART_WAIT_CYCLES = UART_PASS_CYCLES + 5000;
+localparam int UART_PASS_CYCLES = 5*9 * 13 * 10 * 234;
+localparam int UART_WAIT_CYCLES = UART_PASS_CYCLES + 27500;
 
 task print_registers;
     $display("r0 = %0d (0x%08X)", dut.reg_file.registers[0], dut.reg_file.registers[0]);

@@ -4,7 +4,7 @@
 # Execute this makefile from the object directory:
 #    make -f Vuart_tb.mk
 
-default: sim_uart
+default: sim_trace
 
 ### Constants...
 # Perl executable (from $PERL, defaults to 'perl' if not set)
@@ -61,7 +61,7 @@ VPATH += $(VM_USER_DIR)
 
 
 ### Link rules... (from --exe)
-sim_uart: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a $(VM_HIER_LIBS)
+sim_trace: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a $(VM_HIER_LIBS)
 	$(LINK) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) $(LIBS) $(SC_LIBS) -o $@
 
 
