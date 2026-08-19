@@ -1,12 +1,12 @@
 /* verilator lint_off UNUSED */
-//Top level coordination file: Sim Version
+//Top level coordination file
 module top
     #(parameter W = 32)(
         //output logic [W-1:0] placeholder
         input logic resetButton,
         input logic clk,
         output logic done,
-        output logic ovf,
+        output logic ovfLED,
         output logic txBit,
         output logic resetLED
     );
@@ -145,23 +145,13 @@ module top
         .ad(opcode) //input [2:0] ad
     );
 
-    data_mem data_memory(
-        .douta(dataMemOut), //output [31:0] douta
-        .doutb(dOutExtra), //output [31:0] doutb
-        .clka(clk), //input clka
-        .ocea(1'b1), //input ocea
-        .cea(1'b1), //input cea
-        .reseta(reset), //input reseta
-        .wrea(dataMemEn & dataMemWrEn), //input wrea 
-        .clkb(clk), //input clkb
-        .oceb(1'b0), //input oceb
-        .ceb(1'b0), //input ceb
-        .resetb(reset), //input resetb
-        .wreb(1'b0), //input wreb
-        .ada(aluResult[7:0]), //input [7:0] ada
-        .dina(regB_val), //input [31:0] dina
-        .adb(8'b0), //input [7:0] adb
-        .dinb(32'b0) //input [31:0] dinb
+    data_mem data_mem(
+        .dout(dataMemOut), //output [31:0] dout
+        .wre(dataMemEn & dataMemWrEn), //input wre
+        .ad(aluResult[7:0]), //input [7:0] ad
+        .di(regB_val), //input [31:0] di
+        .clk(clk), //input clk
+        .reset(reset)
     );
 
     //Display peripheral modules
@@ -207,7 +197,7 @@ module top
     assign jumped = opcode[2] & !opcode[1] & opcode[0] & !equal;
 
     //ALU signals
-    assign ovf = overflow;
+    assign ovfLED = 1'b0;
 
 
     //Reset

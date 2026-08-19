@@ -429,8 +429,8 @@ always_ff @(posedge clk) begin
         traceWriteIndex <= 5'd0;
     end
     else if(!halt && traceWriteIndex < TRACE_DEPTH[4:0]) begin
-        tracePC[traceWriteIndex[3:0]] <= PC;
-        traceRegs[traceWriteIndex[3:0]] <= allRegs;
+        tracePC[traceWriteIndex[2:0]] <= PC;
+        traceRegs[traceWriteIndex[2:0]] <= allRegs;
         traceWriteIndex <= traceWriteIndex + 5'b1;
     end
 end
@@ -471,8 +471,8 @@ end
 
 always_comb begin
     displayVal = (registerCounter == 4'd0) ? {27'b0, traceIndex} :
-                 (registerCounter == 4'd8) ? {24'b0, tracePC[traceIndex[3:0]]} :
-                 traceRegs[traceIndex[3:0]][registerCounter];
+                 (registerCounter == 4'd8) ? {24'b0, tracePC[traceIndex[2:0]]} :
+                 traceRegs[traceIndex[2:0]][registerCounter];
 
     case(messageCounter)
         4'd0:
