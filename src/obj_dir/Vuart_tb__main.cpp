@@ -2,7 +2,7 @@
 // DESCRIPTION: main() calling loop, created with Verilator --main
 
 #include "verilated.h"
-#include "Vtop_sim_uart.h"
+#include "Vuart_tb.h"
 
 //======================
 
@@ -13,7 +13,7 @@ int main(int argc, char** argv, char**) {
     contextp->commandArgs(argc, argv);
 
     // Construct the Verilated model, from Vtop.h generated from Verilating
-    const std::unique_ptr<Vtop_sim_uart> topp{new Vtop_sim_uart{contextp.get(), ""}};
+    const std::unique_ptr<Vuart_tb> topp{new Vuart_tb{contextp.get(), ""}};
 
     // Simulate until $finish
     while (!contextp->gotFinish()) {
@@ -21,7 +21,7 @@ int main(int argc, char** argv, char**) {
         topp->eval();
         // Advance time
         if (!topp->eventsPending()) break;
-        contextp->timeInc(1);
+        contextp->time(topp->nextTimeSlot());
     }
 
     if (!contextp->gotFinish()) {

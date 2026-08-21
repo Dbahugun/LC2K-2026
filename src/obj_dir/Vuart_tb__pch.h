@@ -3,11 +3,11 @@
 //
 // Internal details; most user sources do not need this header,
 // unless using verilator public meta comments.
-// Suggest use Vtop_sim_uart.h instead.
+// Suggest use Vuart_tb.h instead.
 
 
-#ifndef VERILATED_VTOP_SIM_UART__PCH_H_
-#define VERILATED_VTOP_SIM_UART__PCH_H_  // guard
+#ifndef VERILATED_VUART_TB__PCH_H_
+#define VERILATED_VUART_TB__PCH_H_  // guard
 
 // GCC and Clang only will precompile headers (PCH) for the first header.
 // So, make sure this is the one and only PCH.
@@ -20,8 +20,8 @@
 
 #include "verilated.h"
 
-#include "Vtop_sim_uart__Syms.h"
-#include "Vtop_sim_uart.h"
+#include "Vuart_tb__Syms.h"
+#include "Vuart_tb.h"
 
 // Additional include files added using '--compiler-include'
 

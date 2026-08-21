@@ -153,6 +153,15 @@ module top_sim_uart
         .ad(opcode) //input [2:0] ad
     );
 
+    /*data_mem data_memory(
+        .dout(dataMemOut), //output [31:0] dout
+        .wre(dataMemEn & dataMemWrEn), //input wre
+        .ad(aluResult[7:0]), //input [7:0] ad
+        .di(regB_val), //input [31:0] di
+        .clk(clk), //input clk
+        .reset(reset)
+    );*/
+
     data_mem_sim data_memory(
         .douta(dataMemOut), //output [31:0] douta
         .doutb(dOutExtra), //output [31:0] doutb

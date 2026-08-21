@@ -197,7 +197,7 @@ module top
     assign jumped = opcode[2] & !opcode[1] & opcode[0] & !equal;
 
     //ALU signals
-    assign ovfLED = 1'b0;
+    assign ovfLED = 1'b1;
 
 
     //Reset
