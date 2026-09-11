@@ -22,7 +22,6 @@ LC2K-2026 is a from-scratch implementation of the LC2K instruction set architect
 | UART output | ✅ Implemented, pending post-migration hardware re-verify |
 | MAX7219 / LCD display system | ⏳ Planned |
 | Final assembly & enclosure | ⏳ Planned |
-| Pipeline + cache | ⏳ Planned |
 
 ## Architecture
 
