@@ -17,7 +17,7 @@ LC2K-2026 is a from-scratch implementation of the LC2K instruction set architect
 | RTL design (datapath, control, ALU, register file, UART) | ✅ Complete |
 | Simulation & verification (Verilator, GTKWave) | ✅ Complete — full regression passing |
 | Memory architecture migration (BSRAM → LUT-RAM) | ✅ Complete |
-| Synthesis / timing closure (GOWIN EDA, STA, Fmax) | 🔄 In progress |
+| Synthesis/timing closure (GOWIN EDA, STA, Fmax) | 🔄 In progress |
 | FPGA bring-up (openFPGALoader flash & hardware verify) | 🔄 In progress — debugging flashed board |
 | UART output | ✅ Implemented, pending post-migration hardware re-verify |
 | MAX7219 / LCD display system | ⏳ Planned |
@@ -25,11 +25,11 @@ LC2K-2026 is a from-scratch implementation of the LC2K instruction set architect
 
 ## Architecture
 
-- **ISA:** LC2K, a 32-bit 8 instruction ISA, with an 8-bit word-addressed PC (increments by 1).
+- **ISA:** LC2K, a 32-bit 8-instruction ISA, with an 8-bit word-addressed PC (increments by 1).
 - **Datapath:** Fully combinational from register file output through to writeback; `always_ff` is used only at write points (PC and register file writes).
 - **Register file:** Flip-flop array, synchronous write, combinational read. R0 is hardwired to zero and never written, synthesizes to 224 FFs rather than 256, which the Gowin toolchain correctly optimizes.
-- **ALU:** Single `case`-based unit supporting `+` and `~(a|b)`; branch equality uses a dedicated comparator rather than reusing the ALU, supports debugging flags such as zero, equal, and overflow
-- **Memory:** Originally implemented on hardened BSRAM primitives; migrated to SSRAM and LUT-based distributed RAM (ROM16 for instruction memory / control ROM, RAM16S for data memory) after discovering a vendor-primitive incompatibility with single-cycle execution (see [Key Finding](#key-finding-the-bsram-bug) below). This is the most likely source of the hardware errors and is being investigated currently.
+- **ALU:** Single `case`-based unit supporting `+` and `~(a|b)`; branch equality uses a dedicated comparator rather than reusing the ALU; supports debugging flags such as zero, equal, and overflow
+- **Memory:** Originally implemented on hardened BSRAM primitives; migrated to SSRAM and LUT-based distributed RAM (ROM16 for instruction memory/control ROM, RAM16S for data memory) after discovering a vendor-primitive incompatibility with single-cycle execution (see [Key Finding](#key-finding-the-bsram-bug) below). This is the most likely source of the hardware errors and is being investigated currently.
 - **Clock:** Targeting 27 MHz for margin; if static timing analysis shows negative slack post-migration, the design will fall back to a divided-down clock rather than compromising the single-cycle model. Currently, the projected Fmax is 76 MHz from GOWIN PNR and STA reports.
 - **Assembler** Hand-wrote an LC2K assembler, verified it with public outputs for common programs such as Bubble sort, GCD, and Fibonacci, and used it to write data mem, instruction mem, and control pROM initialization files.
 - **Demo** Assembly programs use delay loops to slow down the calculations so they can be captured at 115200 baud and shown live.
@@ -91,11 +91,11 @@ LC2K-2026/
 1. LCD display
 2. Pipeline
 3. Cache
-4. Memory mapped I/O
+4. Memory-mapped I/O
 
 ## Why This Project
 
-This build is meant to demonstrate the full chip-design workflow end to end: RTL implementation, rigorous simulation-first verification, real hardware/vendor-primitive debugging, timing closure trade-offs, and a polished physical demo — not just a working simulation. The BSRAM output-register discovery in particular is a concrete example of debugging at the vendor-primitive level rather than treating the FPGA toolchain as a black box.
+This build is meant to demonstrate the full chip-design workflow end-to-end: RTL implementation, simulation verification, real hardware/vendor-primitive debugging, timing closure trade-offs, and a polished physical demo, so it is still very much in progress. The hardware flashing errors and BSRAM output-register discovery in particular, although very discouraging at first, taught me the importance of debugging at the vendor-primitive level rather than treating the FPGA toolchain as a black box that I can take for granted.
 
 ---
 
