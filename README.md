@@ -101,4 +101,4 @@ This build is meant to demonstrate the full chip-design workflow end to end: RTL
 
 *Built as a portfolio project targeting chip design / computer architecture roles.*
 
-*P.S. This is my first project of any kind, so please feel free to reach out with constructive criticism or tips for future projects!
+*P.S. This is my first project of any kind, so please feel free to reach out with constructive criticism or tips for future projects!*
