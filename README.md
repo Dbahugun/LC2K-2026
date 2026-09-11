@@ -2,41 +2,44 @@
 
 **A single-cycle LC2K CPU, built from scratch and brought up on real hardware — Tang Nano 20K (Gowin GW2AR-18)**
 
-Dhruv Bahuguna · Summer 2026 · Chip-design portfolio project
+Dhruv Bahuguna · Summer 2026 · RTL portfolio project
 
 ---
 
 ## Overview
 
-LC2K-2026 is a from-scratch implementation of the LC2K instruction set architecture (from EECS 370) as a single-cycle processor, targeting the Tang Nano 20K FPGA. The project spans the full stack of a hardware build: RTL design, simulation/verification, synthesis and timing closure, physical bring-up, and a custom display/UART front end — built as a demonstrable portfolio piece for chip design and computer architecture roles.
+LC2K-2026 is a from-scratch implementation of the LC2K instruction set architecture (from the University of Michigan's EECS 370) as a single-cycle processor, targeting the Tang Nano 20K FPGA. The project spans the full stack of a hardware build: RTL design, simulation/verification, synthesis and timing closure, physical bring-up, and a custom display/UART front end, built to be a portfolio piece for chip design and computer architecture roles.
 
 ## Status
 
 | Stage | Status |
 |---|---|
-| RTL design (datapath, control, ALU, register file) | ✅ Complete |
-| Simulation & verification (Verilator) | ✅ Complete — full regression passing |
+| RTL design (datapath, control, ALU, register file, UART) | ✅ Complete |
+| Simulation & verification (Verilator, GTKWave) | ✅ Complete — full regression passing |
 | Memory architecture migration (BSRAM → LUT-RAM) | ✅ Complete |
-| Synthesis / timing closure (STA, Fmax) | 🔄 In progress |
-| FPGA bring-up (flash & hardware verify) | 🔄 In progress — debugging flashed board |
+| Synthesis / timing closure (GOWIN EDA, STA, Fmax) | 🔄 In progress |
+| FPGA bring-up (openFPGALoader flash & hardware verify) | 🔄 In progress — debugging flashed board |
 | UART output | ✅ Implemented, pending post-migration hardware re-verify |
 | MAX7219 / LCD display system | ⏳ Planned |
 | Final assembly & enclosure | ⏳ Planned |
+| Pipeline + cache | ⏳ Planned |
 
 ## Architecture
 
-- **ISA:** LC2K — 8-bit word-addressed PC (increments by 1), register fields at bits 0–2, 16–18, and 22–24.
-- **Datapath:** Fully combinational from register file output through to writeback; `always_ff` is used only at commit points (PC and register file writes).
-- **Register file:** Flip-flop array, synchronous write, combinational read. R0 is hardwired to zero and never written — synthesizes to 224 FFs rather than 256, which the Gowin toolchain correctly optimizes.
-- **ALU:** Single `case`-based unit supporting `+` and `~(a|b)`; branch equality uses a dedicated comparator rather than reusing the ALU.
-- **Memory:** Originally implemented on hardened BSRAM primitives; migrated to LUT-based distributed RAM (ROM16 for instruction memory / control ROM, RAM16S for data memory) after discovering a vendor-primitive incompatibility (see [Key Finding](#key-finding-the-bsram-bug) below). A 2-bit program-select mux routes instruction fetch and data access to the correct memory pair.
-- **Clock:** Targeting 27 MHz for margin; if static timing analysis shows negative slack post-migration, the design will fall back to a divided-down clock rather than compromising the single-cycle model — programs use delay loops, so this is invisible to the demo.
+- **ISA:** LC2K, a 32-bit 8 instruction ISA, with an 8-bit word-addressed PC (increments by 1).
+- **Datapath:** Fully combinational from register file output through to writeback; `always_ff` is used only at write points (PC and register file writes).
+- **Register file:** Flip-flop array, synchronous write, combinational read. R0 is hardwired to zero and never written, synthesizes to 224 FFs rather than 256, which the Gowin toolchain correctly optimizes.
+- **ALU:** Single `case`-based unit supporting `+` and `~(a|b)`; branch equality uses a dedicated comparator rather than reusing the ALU, supports debugging flags such as zero, equal, and overflow
+- **Memory:** Originally implemented on hardened BSRAM primitives; migrated to SSRAM and LUT-based distributed RAM (ROM16 for instruction memory / control ROM, RAM16S for data memory) after discovering a vendor-primitive incompatibility with single-cycle execution (see [Key Finding](#key-finding-the-bsram-bug) below). This is the most likely source of the hardware errors and is being investigated currently.
+- **Clock:** Targeting 27 MHz for margin; if static timing analysis shows negative slack post-migration, the design will fall back to a divided-down clock rather than compromising the single-cycle model. Currently, the projected Fmax is 76 MHz from GOWIN PNR and STA reports.
+- **Assembler** Hand-wrote an LC2K assembler, verified it with public outputs for common programs such as Bubble sort, GCD, and Fibonacci, and used it to write data mem, instruction mem, and control pROM initialization files.
+- **Demo** Assembly programs use delay loops to slow down the calculations so they can be captured at 115200 baud and shown live.
 
 ## Key Finding: The BSRAM Bug
 
-One of the core engineering results of this project: Gowin's BSRAM and DPB primitives drive their output from an internal register (`bp_reg`) that is loaded from the underlying array on `posedge CLK` — even in "bypass" mode, which only bypasses a *second* register stage. There is no true zero-latency read path, which is fundamentally incompatible with a single-cycle datapath that assumes combinational memory reads.
+One of the core engineering results of this project: Gowin's BSRAM and DPB primitives drive their output from an internal register (`bp_reg`) that is loaded from the underlying array on `posedge CLK`, even in "bypass" mode, which only bypasses a *second* register stage from the pipeline, whereas I needed a purely combinational read. There is no true zero-latency read path, which is fundamentally incompatible with a single-cycle datapath that assumes combinational memory reads, so I had to look for alternatives such as SSRAM and manual LUT instantiation, which are more inefficient.
 
-This was traced directly to Gowin's `prim_sim.v` simulation model rather than inferred from symptoms, and explains several downstream bugs (PC/C0 off-by-one, register-destination shift, `.mi` file changes having no visible effect). The fix — migrating all three memories to LUT-based distributed RAM — trades some timing margin (a longer combinational critical path) for correctness, with before/after Fmax numbers recorded as part of the story.
+This was traced directly to Gowin's `prim_sim.v` simulation model rather than inferred from symptoms, and explains several downstream bugs (PC/C0 off-by-one, register-destination shift, `.mi` file changes having no visible effect). The fix: migrating all three memories to SSRAM and LUT-based distributed RAM trades some timing margin (a longer combinational critical path) for correctness, with before/after Fmax numbers recorded as part of the story.
 
 ## Verification
 
@@ -46,7 +49,7 @@ All verification is done in simulation before any hardware flash, using Verilato
 - **GCD:** R1 = 270, R2 = 192, R3 = 6
 - **Bubble sort (7 elements):** R1–R7 fully sorted
 
-Test programs include Fibonacci (fast & slow variants), bubble sort (fast & slow variants), and GCD — five assembly programs in total, each with its own instruction/data memory pair.
+Test programs include Fibonacci (fast & slow variants), bubble sort (fast, slow, 8-element, and 7-element variants), and GCD; 6 assembly programs in total, each with its own instruction/data memory pair.
 
 ## Repository Layout
 
@@ -56,7 +59,7 @@ LC2K-2026/
 ├── tb/      # Testbenches
 ├── sim/     # Simulation outputs / Verilator artifacts
 ├── docs/    # Design notes and documentation
-└── build/   # Synthesis / bitstream build outputs
+└── build/   # Synthesis/bitstream build outputs
 ```
 
 ## Toolchain
@@ -64,9 +67,8 @@ LC2K-2026/
 - **Synthesis / P&R:** Gowin EDA Pro (Windows)
 - **Simulation:** Verilator 5.049 + GTKWave, via OSS-CAD-Suite (WSL2)
 - **Flashing:** openFPGALoader (`tangnano20k`)
-- **Editor:** VS Code with Verilog-HDL extension
-- **Assembler:** Custom two-pass Python assembler, `$readmemh`-compatible output
-- **Custom tooling:** `mi2init.py` — derives ROM16/RAM16S INIT parameters from `.mi` files by tracing the Gowin wrapper's MUX2 tree (verified 512/512 against Gowin-generated reference output)
+- **Editor:** VS Code with Verilog-HDL and LC2K extensions
+- **Assembler:** Custom two-pass C assembler, `$readmemh`-compatible output
 
 ## Hardware
 
@@ -85,6 +87,12 @@ LC2K-2026/
 7. ⏳ Finalize `.mi` files for all 5 programs
 8. ⏳ Implement MAX7219 SPI driver + double-dabble converter
 9. ⏳ Final flash, verify, and physical assembly
+
+## Extensions (future plan)
+1. LCD display
+2. Pipeline
+3. Cache
+4. Memory mapped I/O
 
 ## Why This Project
 
