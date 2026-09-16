@@ -4,7 +4,7 @@
 # Execute this makefile from the object directory:
 #    make -f Vuart_tb.mk
 
-default: sim_trace
+default: sim_uart
 
 ### Constants...
 # Perl executable (from $PERL, defaults to 'perl' if not set)
@@ -14,9 +14,9 @@ PYTHON3 = python3
 # Path to Verilator kit (from $VERILATOR_ROOT)
 VERILATOR_ROOT = /home/dbahugun/oss-cad-suite/share/verilator
 # SystemC include directory with systemc.h (from $SYSTEMC_INCLUDE)
-SYSTEMC_INCLUDE ?= 
+SYSTEMC_INCLUDE ?=
 # SystemC library directory with libsystemc.a (from $SYSTEMC_LIBDIR)
-SYSTEMC_LIBDIR ?= 
+SYSTEMC_LIBDIR ?=
 
 ### Switches...
 # C++ code coverage  0/1 (from --prof-c)
@@ -37,7 +37,7 @@ VM_PREFIX = Vuart_tb
 VM_MODPREFIX = Vuart_tb
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-DVL_TIME_CONTEXT \
+  -DVL_TIME_CONTEXT \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
@@ -47,8 +47,7 @@ VM_USER_CLASSES = \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
-	.. \
-
+  .. \
 
 ### Default rules...
 # Include list of all generated classes
@@ -61,8 +60,7 @@ VPATH += $(VM_USER_DIR)
 
 
 ### Link rules... (from --exe)
-sim_trace: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a $(VM_HIER_LIBS)
+sim_uart: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a
 	$(LINK) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) $(LIBS) $(SC_LIBS) -o $@
-
 
 # Verilated -*- Makefile -*-

@@ -162,7 +162,6 @@ module top
         .reset(reset),
         .txOutHalt(txBit),
         //Debugging only, repurposing R0 to display cycle count
-        .haltCycleCount(haltCycleCount),
         .PC(PC)
     );
 

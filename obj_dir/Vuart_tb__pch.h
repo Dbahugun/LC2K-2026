@@ -5,7 +5,6 @@
 // unless using verilator public meta comments.
 // Suggest use Vuart_tb.h instead.
 
-
 #ifndef VERILATED_VUART_TB__PCH_H_
 #define VERILATED_VUART_TB__PCH_H_  // guard
 

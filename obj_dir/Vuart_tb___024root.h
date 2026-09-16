@@ -11,78 +11,75 @@
 
 class Vuart_tb__Syms;
 
-class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final : public VerilatedModule {
+class alignas(VL_CACHE_LINE_BYTES) Vuart_tb___024root final {
   public:
 
     // DESIGN SPECIFIC STATE
     CData/*0:0*/ uart_tb__DOT__clk;
-    CData/*0:0*/ uart_tb__DOT__txOut;
     CData/*0:0*/ uart_tb__DOT__rst;
     CData/*7:0*/ uart_tb__DOT__rx_byte;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT__pcDisable;
     CData/*7:0*/ uart_tb__DOT__dut__DOT__PC;
-    CData/*2:0*/ uart_tb__DOT__dut__DOT__regB_loc;
-    CData/*2:0*/ uart_tb__DOT__dut__DOT__opcode;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT__aluMode;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT__zeroFlag;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT__equal;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT__overflow;
-    CData/*2:0*/ uart_tb__DOT__dut__DOT__regFileReadMux;
     CData/*0:0*/ uart_tb__DOT__dut__DOT__txCycleTrigger;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT____VdfgRegularize_h8ea05e1a_1_1;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT____VdfgRegularize_h8ea05e1a_1_2;
+    CData/*0:0*/ uart_tb__DOT__dut__DOT__PC_File__DOT__halt;
     CData/*7:0*/ uart_tb__DOT__dut__DOT__PC_File__DOT__newPC;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT__alu__DOT__sameMSB;
+    CData/*2:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__addressB;
+    CData/*2:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__addressDest;
+    CData/*0:0*/ uart_tb__DOT__dut__DOT__alu__DOT__equalFlag;
     CData/*1:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__state;
-    CData/*4:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceWriteIndex;
-    CData/*4:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceIndex;
-    CData/*4:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceCountFrozen;
-    CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__cycleCounter;
-    CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__registerCounter;
+    CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__frozenPC;
+    CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__baudCounter;
     CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__bitCounter;
-    CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__messageCounter;
+    CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__charCounter;
+    CData/*3:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__lineCounter;
     CData/*7:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__asciiByte;
-    CData/*0:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__halt_latched;
+    CData/*2:0*/ __VdfgRegularize_h6e95ff9d_0_0;
+    CData/*0:0*/ __VdfgRegularize_h6e95ff9d_0_6;
+    CData/*0:0*/ __VdfgRegularize_h6e95ff9d_0_7;
     CData/*0:0*/ __VdlyVal__uart_tb__DOT__clk__v0;
     CData/*0:0*/ __VdlySet__uart_tb__DOT__clk__v0;
     CData/*0:0*/ __VstlFirstIteration;
+    CData/*0:0*/ __VstlPhaseResult;
     CData/*0:0*/ __Vtrigprevexpr___TOP__uart_tb__DOT__clk__0;
-    CData/*0:0*/ __Vtrigprevexpr___TOP__uart_tb__DOT__txOut__0;
-    CData/*0:0*/ __VactContinue;
-    SData/*9:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__shiftRegister;
+    CData/*0:0*/ __Vtrigprevexpr_hd0722344__1;
+    CData/*0:0*/ __VactPhaseResult;
+    CData/*0:0*/ __VinactPhaseResult;
+    CData/*0:0*/ __VnbaPhaseResult;
+    SData/*9:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__frame;
+    IData/*31:0*/ uart_tb__DOT__run_until_halt__Vstatic__run_number;
     IData/*31:0*/ uart_tb__DOT__byte_count;
     IData/*31:0*/ uart_tb__DOT__line_count;
-    IData/*31:0*/ uart_tb__DOT__dut__DOT__regA_val;
-    IData/*31:0*/ uart_tb__DOT__dut__DOT__regB_val;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__regDest_val;
-    IData/*31:0*/ uart_tb__DOT__dut__DOT__aluResult;
-    IData/*31:0*/ uart_tb__DOT__dut__DOT__aluMux;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__haltCycleCount;
     VlWide<8>/*255:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__registers;
-    IData/*31:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk1__DOT__i;
-    IData/*31:0*/ uart_tb__DOT__dut__DOT__reg_file__DOT__unnamedblk2__DOT__j;
+    IData/*31:0*/ uart_tb__DOT__dut__DOT__alu__DOT__numberOne;
+    IData/*31:0*/ uart_tb__DOT__dut__DOT__alu__DOT__numberTwo;
+    IData/*31:0*/ uart_tb__DOT__dut__DOT__alu__DOT__result;
+    IData/*31:0*/ uart_tb__DOT__dut__DOT__data_memory__DOT__dina;
+    VlWide<8>/*255:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__allRegsFreeze;
     IData/*31:0*/ uart_tb__DOT__dut__DOT__computerDisplay__DOT__displayVal;
     IData/*31:0*/ __VactIterCount;
+    IData/*31:0*/ __VinactIterCount;
+    IData/*31:0*/ __Vi;
     VlUnpacked<IData/*31:0*/, 256> uart_tb__DOT__dut__DOT__instruction__DOT__instructionSimMem;
     VlUnpacked<CData/*7:0*/, 8> uart_tb__DOT__dut__DOT__control_prom__DOT__control_rom;
     VlUnpacked<IData/*31:0*/, 256> uart_tb__DOT__dut__DOT__data_memory__DOT__dataSimMem;
-    VlUnpacked<CData/*7:0*/, 16> uart_tb__DOT__dut__DOT__computerDisplay__DOT__tracePC;
-    VlUnpacked<VlWide<8>/*255:0*/, 16> uart_tb__DOT__dut__DOT__computerDisplay__DOT__traceRegs;
     VlUnpacked<CData/*7:0*/, 16> uart_tb__DOT__dut__DOT__computerDisplay__DOT__ascii;
+    VlUnpacked<QData/*63:0*/, 1> __VstlTriggered;
+    VlUnpacked<QData/*63:0*/, 1> __VactTriggered;
+    VlUnpacked<QData/*63:0*/, 1> __VactTriggeredAcc;
+    VlUnpacked<QData/*63:0*/, 1> __VnbaTriggered;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     std::string uart_tb__DOT__line_buf;
     VlDelayScheduler __VdlySched;
-    VlTriggerScheduler __VtrigSched_h5928e91a__0;
-    VlTriggerScheduler __VtrigSched_h24b2bb95__0;
-    VlTriggerVec<1> __VstlTriggered;
-    VlTriggerVec<3> __VactTriggered;
-    VlTriggerVec<3> __VnbaTriggered;
+    VlTriggerScheduler __VtrigSched_h584514fb__0;
+    VlTriggerScheduler __VtrigSched_hac428d6b__0;
 
     // INTERNAL VARIABLES
-    Vuart_tb__Syms* const vlSymsp;
+    Vuart_tb__Syms* vlSymsp;
+    const char* vlNamep;
 
     // CONSTRUCTORS
-    Vuart_tb___024root(Vuart_tb__Syms* symsp, const char* v__name);
+    Vuart_tb___024root(Vuart_tb__Syms* symsp, const char* namep);
     ~Vuart_tb___024root();
     VL_UNCOPYABLE(Vuart_tb___024root);
 

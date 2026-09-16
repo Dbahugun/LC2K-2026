@@ -189,7 +189,6 @@ module top_sim_uart
         .reset(reset),
         .txOutHalt(txBit),
         //Debugging only, repurposing R0 to display cycle count
-        .haltCycleCount(haltCycleCount),
         .PC(PC)
     );
 
